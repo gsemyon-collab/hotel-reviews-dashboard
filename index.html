@@ -3,11 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f4f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Ibis Москва Динамо">
 <title>Ibis Москва Динамо - mobile</title>
 <style id="mobile-dashboard-styles">
+html{background:#f4f5f7;-webkit-text-size-adjust:100%}
+body{margin:0;background:#f4f5f7}
 body.no-js .wrap{display:none}
 body.js-ready #mobile-static-fallback{display:none}
-.mobile-static-fallback{max-width:760px;margin:0 auto;padding:16px 10px 48px;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#141820;background:#f4f5f7;box-sizing:border-box}
+.mobile-static-fallback{max-width:760px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#141820;background:#f4f5f7;box-sizing:border-box}
 .mobile-static-fallback *{box-sizing:border-box;min-width:0}
 .mobile-static-fallback header{display:flex;gap:12px;align-items:center;margin-bottom:14px}
 .mobile-static-logo{width:42px;height:42px;border-radius:8px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:800}
@@ -24,24 +30,40 @@ body.js-ready #mobile-static-fallback{display:none}
 .mobile-static-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
 .mobile-static-card{background:#fff;border:1px solid #dde1e8;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(15,23,42,.05)}
 .mobile-static-card h2{margin:0 0 10px;font-size:15px}
+.mobile-card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.mobile-card-heading h2{margin:0;white-space:nowrap}
+.mobile-card-heading select{width:96px;flex:0 0 96px;border:1px solid #dde1e8;border-radius:7px;background:#fff;color:#141820;padding:6px 8px;font:inherit;font-size:12px}
 .mobile-static-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(86px,1.25fr) 42px;gap:8px;align-items:center;margin:8px 0;font-size:12px;color:#607087;width:100%}
 .mobile-static-bar span{overflow:hidden;text-overflow:ellipsis}
 .mobile-static-bar b{display:block;height:8px;border-radius:999px;min-width:2px;max-width:100%}
 .mobile-static-bar em{font-style:normal;text-align:right;color:#141820;font-weight:700}
 .mobile-static-toggle{border:1px solid #dde1e8;background:#f4f5f7;color:#141820;border-radius:8px;padding:8px 10px;font:inherit;font-size:12px;margin:0 0 8px}
 .mobile-static-toggle.active{background:#141820;color:#fff;border-color:#141820}
-#mobile-timeline-chart{display:flex;gap:6px;overflow-x:auto;align-items:flex-end;padding:4px 0 2px}
-#mobile-timeline-chart button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:4px;color:#607087;font:inherit;font-size:10px;padding:0 2px;min-width:28px}
-#mobile-timeline-chart button b{display:block;width:16px;border-radius:5px 5px 2px 2px;background:#3b6ef5;opacity:.65}
+#mobile-timeline-chart{height:112px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;align-items:end;padding:4px 0 0;overflow:hidden}
+#mobile-timeline-chart button{height:104px;border:0;background:transparent;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;color:#607087;font:inherit;font-size:9px;padding:0;min-width:0}
+#mobile-timeline-chart button em{font-style:normal;font-size:8px;line-height:1;color:#607087;min-height:8px}
+#mobile-timeline-chart button b{display:block;width:min(14px,70%);border-radius:4px 4px 2px 2px;background:#3b6ef5;opacity:.65}
+#mobile-timeline-chart button:disabled{opacity:.35}
 #mobile-timeline-chart button.active b{background:#141820;opacity:1}
 #mobile-timeline-chart button.active span{color:#141820;font-weight:700}
-.mobile-static-controls{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}
-.mobile-static-controls input,.mobile-static-controls select,.mobile-static-controls button{width:100%;border:1px solid #dde1e8;border-radius:8px;background:#fff;color:#141820;padding:10px 11px;font:inherit;font-size:13px;box-sizing:border-box}
+.mobile-filter-shell{position:sticky;top:0;z-index:20;margin:8px -4px 10px;padding:8px 4px 6px;background:rgba(244,245,247,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#mobile-search{width:100%;height:42px;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#141820;padding:10px 12px;font:inherit;font-size:14px;box-sizing:border-box}
+.mobile-filter-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) 42px;gap:7px;margin-top:7px;align-items:start}
+.mobile-filter-actions>select,.mobile-filter-actions>button,.mobile-filter-actions summary{height:40px;width:100%;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#141820;padding:9px 10px;font:inherit;font-size:12px;box-sizing:border-box}
+.mobile-filter-actions details{position:relative}
+.mobile-filter-actions summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700}
+.mobile-filter-actions summary::-webkit-details-marker{display:none}
+.mobile-filter-actions details[open] summary{background:#141820;color:#fff;border-color:#141820}
+#mobile-filter-count{width:18px;height:18px;border-radius:50%;background:#3b6ef5;color:#fff;place-items:center;font-size:10px}
+#mobile-quick-reset{display:none;place-items:center;padding:0;font-size:21px;line-height:1;background:#fff;color:#607087}
+.mobile-filter-body{position:absolute;top:46px;left:0;width:min(330px,calc(100vw - 28px));padding:12px;background:#fff;border:1px solid #cfd5df;border-radius:8px;box-shadow:0 14px 34px rgba(15,23,42,.18);display:grid;gap:10px;z-index:30}
+.mobile-filter-body label{display:grid;gap:5px;font-size:11px;color:#607087}
+.mobile-filter-body select,.mobile-filter-body input,.mobile-filter-body button{width:100%;height:40px;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#141820;padding:8px 10px;font:inherit;font-size:13px;box-sizing:border-box}
 .mobile-static-dates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .mobile-static-dates label{font-size:11px;color:#607087}
-.mobile-static-dates input{margin-top:4px}
-.mobile-static-controls button{background:#141820;color:#fff;border-color:#141820}
-.mobile-static-chips{display:flex;gap:7px;overflow-x:auto;margin:6px 0 12px}
+.mobile-filter-body button{background:#141820;color:#fff;border-color:#141820}
+.mobile-static-chips{display:flex;gap:6px;overflow-x:auto;margin:7px 0 6px;padding-bottom:2px;scrollbar-width:none}
+.mobile-static-chips::-webkit-scrollbar{display:none}
 .mobile-static-chips button{border:1px solid #dde1e8;background:#fff;color:#607087;border-radius:999px;padding:8px 11px;font:inherit;font-size:12px;white-space:nowrap}
 .mobile-static-chips button.active{background:#141820;color:#fff;border-color:#141820}
 .mobile-static-more{display:block;margin:16px auto 0;border:1px solid #dde1e8;background:#fff;color:#141820;border-radius:8px;padding:10px 18px;font:inherit;font-size:13px}
@@ -275,441 +297,122 @@ body.js-ready #mobile-static-fallback{display:none}
       </div></div>
     </section>
     <section class="mobile-static-card mobile-static-wide">
-      <h2>Динамика отзывов</h2>
+      <div class="mobile-card-heading">
+        <h2>Динамика отзывов</h2>
+        <select id="mobile-timeline-year" aria-label="Год динамики отзывов">
+          <option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option>
+        </select>
+      </div>
       <div id="mobile-timeline-chart">
-    <button type="button" data-month="2018-03">
-      <b style="height:24px"></b>
-      <span>03.18</span>
-    </button>
-    <button type="button" data-month="2018-06">
-      <b style="height:26px"></b>
-      <span>06.18</span>
-    </button>
-    <button type="button" data-month="2018-07">
-      <b style="height:26px"></b>
-      <span>07.18</span>
-    </button>
-    <button type="button" data-month="2018-08">
-      <b style="height:27px"></b>
-      <span>08.18</span>
-    </button>
-    <button type="button" data-month="2018-09">
-      <b style="height:26px"></b>
-      <span>09.18</span>
-    </button>
-    <button type="button" data-month="2018-10">
-      <b style="height:29px"></b>
-      <span>10.18</span>
-    </button>
-    <button type="button" data-month="2018-11">
-      <b style="height:29px"></b>
-      <span>11.18</span>
-    </button>
-    <button type="button" data-month="2018-12">
-      <b style="height:29px"></b>
-      <span>12.18</span>
-    </button>
-    <button type="button" data-month="2019-01">
-      <b style="height:29px"></b>
-      <span>01.19</span>
-    </button>
-    <button type="button" data-month="2019-02">
-      <b style="height:27px"></b>
-      <span>02.19</span>
-    </button>
-    <button type="button" data-month="2019-03">
-      <b style="height:26px"></b>
-      <span>03.19</span>
-    </button>
-    <button type="button" data-month="2019-04">
-      <b style="height:28px"></b>
-      <span>04.19</span>
-    </button>
-    <button type="button" data-month="2019-05">
-      <b style="height:26px"></b>
-      <span>05.19</span>
-    </button>
-    <button type="button" data-month="2019-06">
-      <b style="height:29px"></b>
-      <span>06.19</span>
-    </button>
-    <button type="button" data-month="2019-07">
-      <b style="height:31px"></b>
-      <span>07.19</span>
-    </button>
-    <button type="button" data-month="2019-08">
-      <b style="height:31px"></b>
-      <span>08.19</span>
-    </button>
-    <button type="button" data-month="2019-09">
-      <b style="height:31px"></b>
-      <span>09.19</span>
-    </button>
-    <button type="button" data-month="2019-10">
-      <b style="height:27px"></b>
-      <span>10.19</span>
-    </button>
-    <button type="button" data-month="2019-11">
-      <b style="height:28px"></b>
-      <span>11.19</span>
-    </button>
-    <button type="button" data-month="2019-12">
-      <b style="height:28px"></b>
-      <span>12.19</span>
-    </button>
-    <button type="button" data-month="2020-01">
-      <b style="height:33px"></b>
-      <span>01.20</span>
-    </button>
-    <button type="button" data-month="2020-02">
-      <b style="height:28px"></b>
-      <span>02.20</span>
-    </button>
-    <button type="button" data-month="2020-03">
-      <b style="height:31px"></b>
-      <span>03.20</span>
-    </button>
-    <button type="button" data-month="2020-04">
-      <b style="height:26px"></b>
-      <span>04.20</span>
-    </button>
-    <button type="button" data-month="2020-05">
-      <b style="height:24px"></b>
-      <span>05.20</span>
-    </button>
-    <button type="button" data-month="2020-06">
-      <b style="height:25px"></b>
-      <span>06.20</span>
-    </button>
-    <button type="button" data-month="2020-07">
-      <b style="height:26px"></b>
-      <span>07.20</span>
-    </button>
-    <button type="button" data-month="2020-08">
-      <b style="height:26px"></b>
-      <span>08.20</span>
-    </button>
-    <button type="button" data-month="2020-09">
-      <b style="height:26px"></b>
-      <span>09.20</span>
-    </button>
-    <button type="button" data-month="2020-10">
-      <b style="height:27px"></b>
-      <span>10.20</span>
-    </button>
-    <button type="button" data-month="2020-11">
-      <b style="height:24px"></b>
-      <span>11.20</span>
-    </button>
-    <button type="button" data-month="2020-12">
-      <b style="height:27px"></b>
-      <span>12.20</span>
-    </button>
-    <button type="button" data-month="2021-01">
-      <b style="height:26px"></b>
-      <span>01.21</span>
-    </button>
-    <button type="button" data-month="2021-02">
-      <b style="height:25px"></b>
-      <span>02.21</span>
-    </button>
-    <button type="button" data-month="2021-03">
-      <b style="height:30px"></b>
-      <span>03.21</span>
-    </button>
-    <button type="button" data-month="2021-04">
-      <b style="height:31px"></b>
-      <span>04.21</span>
-    </button>
-    <button type="button" data-month="2021-05">
-      <b style="height:28px"></b>
-      <span>05.21</span>
-    </button>
-    <button type="button" data-month="2021-06">
-      <b style="height:27px"></b>
-      <span>06.21</span>
-    </button>
-    <button type="button" data-month="2021-07">
-      <b style="height:28px"></b>
-      <span>07.21</span>
-    </button>
-    <button type="button" data-month="2021-08">
-      <b style="height:30px"></b>
-      <span>08.21</span>
-    </button>
-    <button type="button" data-month="2021-09">
-      <b style="height:31px"></b>
-      <span>09.21</span>
-    </button>
-    <button type="button" data-month="2021-10">
-      <b style="height:33px"></b>
-      <span>10.21</span>
-    </button>
-    <button type="button" data-month="2021-11">
-      <b style="height:34px"></b>
-      <span>11.21</span>
-    </button>
-    <button type="button" data-month="2021-12">
-      <b style="height:35px"></b>
-      <span>12.21</span>
-    </button>
-    <button type="button" data-month="2022-01">
-      <b style="height:37px"></b>
-      <span>01.22</span>
-    </button>
-    <button type="button" data-month="2022-02">
-      <b style="height:32px"></b>
-      <span>02.22</span>
-    </button>
-    <button type="button" data-month="2022-03">
-      <b style="height:26px"></b>
-      <span>03.22</span>
-    </button>
-    <button type="button" data-month="2022-04">
-      <b style="height:35px"></b>
-      <span>04.22</span>
-    </button>
-    <button type="button" data-month="2022-05">
-      <b style="height:37px"></b>
-      <span>05.22</span>
-    </button>
-    <button type="button" data-month="2022-06">
-      <b style="height:38px"></b>
-      <span>06.22</span>
-    </button>
-    <button type="button" data-month="2022-07">
-      <b style="height:33px"></b>
-      <span>07.22</span>
-    </button>
-    <button type="button" data-month="2022-08">
-      <b style="height:40px"></b>
-      <span>08.22</span>
-    </button>
-    <button type="button" data-month="2022-09">
-      <b style="height:34px"></b>
-      <span>09.22</span>
-    </button>
-    <button type="button" data-month="2022-10">
-      <b style="height:33px"></b>
-      <span>10.22</span>
-    </button>
-    <button type="button" data-month="2022-11">
-      <b style="height:39px"></b>
-      <span>11.22</span>
-    </button>
-    <button type="button" data-month="2022-12">
-      <b style="height:46px"></b>
-      <span>12.22</span>
-    </button>
-    <button type="button" data-month="2023-01">
-      <b style="height:38px"></b>
-      <span>01.23</span>
-    </button>
-    <button type="button" data-month="2023-02">
-      <b style="height:39px"></b>
-      <span>02.23</span>
-    </button>
-    <button type="button" data-month="2023-03">
-      <b style="height:33px"></b>
-      <span>03.23</span>
-    </button>
-    <button type="button" data-month="2023-04">
-      <b style="height:35px"></b>
-      <span>04.23</span>
-    </button>
-    <button type="button" data-month="2023-05">
-      <b style="height:39px"></b>
-      <span>05.23</span>
-    </button>
-    <button type="button" data-month="2023-06">
-      <b style="height:43px"></b>
-      <span>06.23</span>
-    </button>
-    <button type="button" data-month="2023-07">
-      <b style="height:37px"></b>
-      <span>07.23</span>
-    </button>
-    <button type="button" data-month="2023-08">
-      <b style="height:43px"></b>
-      <span>08.23</span>
-    </button>
-    <button type="button" data-month="2023-09">
-      <b style="height:39px"></b>
-      <span>09.23</span>
-    </button>
-    <button type="button" data-month="2023-10">
-      <b style="height:45px"></b>
-      <span>10.23</span>
-    </button>
-    <button type="button" data-month="2023-11">
-      <b style="height:44px"></b>
-      <span>11.23</span>
-    </button>
-    <button type="button" data-month="2023-12">
-      <b style="height:49px"></b>
-      <span>12.23</span>
-    </button>
-    <button type="button" data-month="2024-01">
-      <b style="height:44px"></b>
-      <span>01.24</span>
-    </button>
-    <button type="button" data-month="2024-02">
-      <b style="height:42px"></b>
-      <span>02.24</span>
-    </button>
-    <button type="button" data-month="2024-03">
-      <b style="height:41px"></b>
-      <span>03.24</span>
-    </button>
-    <button type="button" data-month="2024-04">
-      <b style="height:41px"></b>
-      <span>04.24</span>
-    </button>
-    <button type="button" data-month="2024-05">
-      <b style="height:39px"></b>
-      <span>05.24</span>
-    </button>
-    <button type="button" data-month="2024-06">
-      <b style="height:36px"></b>
-      <span>06.24</span>
-    </button>
-    <button type="button" data-month="2024-07">
-      <b style="height:43px"></b>
-      <span>07.24</span>
-    </button>
-    <button type="button" data-month="2024-08">
-      <b style="height:41px"></b>
-      <span>08.24</span>
-    </button>
-    <button type="button" data-month="2024-09">
-      <b style="height:41px"></b>
-      <span>09.24</span>
-    </button>
-    <button type="button" data-month="2024-10">
-      <b style="height:43px"></b>
-      <span>10.24</span>
-    </button>
-    <button type="button" data-month="2024-11">
-      <b style="height:39px"></b>
-      <span>11.24</span>
-    </button>
-    <button type="button" data-month="2024-12">
-      <b style="height:51px"></b>
-      <span>12.24</span>
-    </button>
-    <button type="button" data-month="2025-01">
-      <b style="height:46px"></b>
-      <span>01.25</span>
-    </button>
-    <button type="button" data-month="2025-02">
-      <b style="height:34px"></b>
-      <span>02.25</span>
-    </button>
-    <button type="button" data-month="2025-03">
-      <b style="height:39px"></b>
-      <span>03.25</span>
-    </button>
-    <button type="button" data-month="2025-04">
-      <b style="height:41px"></b>
-      <span>04.25</span>
-    </button>
-    <button type="button" data-month="2025-05">
-      <b style="height:82px"></b>
-      <span>05.25</span>
-    </button>
-    <button type="button" data-month="2025-06">
-      <b style="height:40px"></b>
-      <span>06.25</span>
-    </button>
-    <button type="button" data-month="2025-07">
-      <b style="height:44px"></b>
-      <span>07.25</span>
-    </button>
-    <button type="button" data-month="2025-08">
-      <b style="height:38px"></b>
-      <span>08.25</span>
-    </button>
-    <button type="button" data-month="2025-09">
-      <b style="height:36px"></b>
-      <span>09.25</span>
-    </button>
-    <button type="button" data-month="2025-10">
-      <b style="height:37px"></b>
-      <span>10.25</span>
-    </button>
-    <button type="button" data-month="2025-11">
-      <b style="height:41px"></b>
-      <span>11.25</span>
-    </button>
-    <button type="button" data-month="2025-12">
-      <b style="height:41px"></b>
-      <span>12.25</span>
-    </button>
-    <button type="button" data-month="2026-01">
-      <b style="height:38px"></b>
-      <span>01.26</span>
-    </button>
-    <button type="button" data-month="2026-02">
-      <b style="height:35px"></b>
-      <span>02.26</span>
-    </button>
-    <button type="button" data-month="2026-03">
-      <b style="height:31px"></b>
-      <span>03.26</span>
-    </button>
-    <button type="button" data-month="2026-04">
-      <b style="height:31px"></b>
-      <span>04.26</span>
-    </button>
-    <button type="button" data-month="2026-05">
-      <b style="height:32px"></b>
-      <span>05.26</span>
-    </button>
-    <button type="button" data-month="2026-06">
-      <b style="height:32px"></b>
-      <span>06.26</span>
-    </button>
-    <button type="button" data-month="2026-07">
-      <b style="height:27px"></b>
-      <span>07.26</span>
-    </button></div>
+      <button type="button" data-month="2026-01">
+        <em>36</em>
+        <b style="height:25px"></b>
+        <span>янв</span>
+      </button>
+      <button type="button" data-month="2026-02">
+        <em>28</em>
+        <b style="height:22px"></b>
+        <span>фев</span>
+      </button>
+      <button type="button" data-month="2026-03">
+        <em>18</em>
+        <b style="height:18px"></b>
+        <span>мар</span>
+      </button>
+      <button type="button" data-month="2026-04">
+        <em>18</em>
+        <b style="height:18px"></b>
+        <span>апр</span>
+      </button>
+      <button type="button" data-month="2026-05">
+        <em>21</em>
+        <b style="height:20px"></b>
+        <span>май</span>
+      </button>
+      <button type="button" data-month="2026-06">
+        <em>21</em>
+        <b style="height:20px"></b>
+        <span>июн</span>
+      </button>
+      <button type="button" data-month="2026-07">
+        <em>8</em>
+        <b style="height:15px"></b>
+        <span>июл</span>
+      </button>
+      <button type="button" data-month="2026-08" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>авг</span>
+      </button>
+      <button type="button" data-month="2026-09" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>сен</span>
+      </button>
+      <button type="button" data-month="2026-10" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>окт</span>
+      </button>
+      <button type="button" data-month="2026-11" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>ноя</span>
+      </button>
+      <button type="button" data-month="2026-12" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>дек</span>
+      </button></div>
     </section>
   </div>
   <h2>Все отзывы</h2>
-  <div class="mobile-static-controls">
-    <input id="mobile-search" type="search" placeholder="Поиск по тексту, автору...">
-    <select id="mobile-theme">
-      <option value="">Все темы</option>
-      <option value="Безопасность и доступ">Безопасность и доступ</option><option value="Бронь и заселение">Бронь и заселение</option><option value="Еда и напитки">Еда и напитки</option><option value="Интерьер и атмосфера">Интерьер и атмосфера</option><option value="Коммуникация и ответы">Коммуникация и ответы</option><option value="Мероприятия и залы">Мероприятия и залы</option><option value="Негативный опыт">Негативный опыт</option><option value="Номер и комфорт">Номер и комфорт</option><option value="Ожидание и скорость">Ожидание и скорость</option><option value="Оплата и счета">Оплата и счета</option><option value="Оснащение и поломки">Оснащение и поломки</option><option value="Парковка">Парковка</option><option value="Персонал и сервис">Персонал и сервис</option><option value="Расположение">Расположение</option><option value="Спа и бассейн">Спа и бассейн</option><option value="Цена и ценность">Цена и ценность</option><option value="Чистота">Чистота</option><option value="Шум">Шум</option>
-    </select>
-    <select id="mobile-level">
-      <option value="">Все уровни автора</option>
-      <option value="1-3">Уровень 1-3</option>
-      <option value="4-6">Уровень 4-6</option>
-      <option value="7-9">Уровень 7-9</option>
-      <option value="10-12">Уровень 10-12</option>
-      <option value="13-15">Уровень 13-15</option>
-      <option value="16-999">Уровень 16+</option>
-    </select>
-    <select id="mobile-sort">
-      <option value="date">Сначала новые</option>
-      <option value="date-asc">Сначала старые</option>
-      <option value="react">Больше реакций</option>
-      <option value="len">Самые длинные</option>
-    </select>
-    <div class="mobile-static-dates">
-      <label>С <input id="mobile-date-from" type="date"></label>
-      <label>По <input id="mobile-date-to" type="date"></label>
+  <div class="mobile-filter-shell">
+    <input id="mobile-search" type="search" placeholder="Поиск по отзывам и авторам">
+    <div class="mobile-filter-actions">
+      <details id="mobile-filter-details">
+        <summary>Фильтры <span id="mobile-filter-count"></span></summary>
+        <div class="mobile-filter-body">
+          <label>Тема
+            <select id="mobile-theme">
+              <option value="">Все темы</option>
+              <option value="Безопасность и доступ">Безопасность и доступ</option><option value="Бронь и заселение">Бронь и заселение</option><option value="Еда и напитки">Еда и напитки</option><option value="Интерьер и атмосфера">Интерьер и атмосфера</option><option value="Коммуникация и ответы">Коммуникация и ответы</option><option value="Мероприятия и залы">Мероприятия и залы</option><option value="Негативный опыт">Негативный опыт</option><option value="Номер и комфорт">Номер и комфорт</option><option value="Ожидание и скорость">Ожидание и скорость</option><option value="Оплата и счета">Оплата и счета</option><option value="Оснащение и поломки">Оснащение и поломки</option><option value="Парковка">Парковка</option><option value="Персонал и сервис">Персонал и сервис</option><option value="Расположение">Расположение</option><option value="Спа и бассейн">Спа и бассейн</option><option value="Цена и ценность">Цена и ценность</option><option value="Чистота">Чистота</option><option value="Шум">Шум</option>
+            </select>
+          </label>
+          <label>Уровень автора
+            <select id="mobile-level">
+              <option value="">Все уровни</option>
+              <option value="1-3">Уровень 1-3</option>
+              <option value="4-6">Уровень 4-6</option>
+              <option value="7-9">Уровень 7-9</option>
+              <option value="10-12">Уровень 10-12</option>
+              <option value="13-15">Уровень 13-15</option>
+              <option value="16-999">Уровень 16+</option>
+            </select>
+          </label>
+          <div class="mobile-static-dates">
+            <label>С <input id="mobile-date-from" type="date"></label>
+            <label>По <input id="mobile-date-to" type="date"></label>
+          </div>
+          <button id="mobile-reset" type="button">Сбросить все фильтры</button>
+        </div>
+      </details>
+      <select id="mobile-sort" aria-label="Сортировка отзывов">
+        <option value="date">Сначала новые</option>
+        <option value="date-asc">Сначала старые</option>
+        <option value="react">Больше реакций</option>
+        <option value="len">Самые длинные</option>
+      </select>
+      <button id="mobile-quick-reset" type="button" aria-label="Сбросить фильтры" title="Сбросить фильтры">×</button>
     </div>
-    <button id="mobile-reset" type="button">Сбросить</button>
+    <div class="mobile-static-chips" id="mobile-sentiment-filter">
+      <button type="button" data-sentiment="">Все</button>
+      <button type="button" data-sentiment="Положительный">Позитивные</button>
+      <button type="button" data-sentiment="Отрицательный">Негативные</button>
+      <button type="button" data-sentiment="Нейтральный">Нейтральные</button>
+    </div>
+    <div class="mobile-static-note" id="mobile-count-note">2624 отзывов внутри файла</div>
   </div>
-  <div class="mobile-static-chips" id="mobile-sentiment-filter">
-    <button type="button" data-sentiment="">Все</button>
-    <button type="button" data-sentiment="Положительный">Позитивные</button>
-    <button type="button" data-sentiment="Отрицательный">Негативные</button>
-    <button type="button" data-sentiment="Нейтральный">Нейтральные</button>
-  </div>
-  <div class="mobile-static-note" id="mobile-count-note">2624 отзывов внутри файла</div>
   <div class="mobile-static-list">
       <article class="mobile-static-review"
         data-date="2026-07-08"
@@ -45331,7 +45034,9 @@ body.js-ready #mobile-static-fallback{display:none}
   var includeNeutralComplaints=false;
   var aspectFrequencyMode=false;
   var activeMonth='';
+  var activeYear=q('mobile-timeline-year')?q('mobile-timeline-year').value:'';
   var limit=80;
+  var monthNames=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
   function q(id){return document.getElementById(id);}
   function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
   function pct(part,total){return total?Math.round(part*100/total):0;}
@@ -45374,11 +45079,18 @@ body.js-ready #mobile-static-fallback{display:none}
     drawTimeline();
   }
   function drawTimeline(){
-    var months={},keys,i,d,k,mx=1,html='';
+    var months={},years={},keys,i,d,k,mx=1,html='',yearSelect=q('mobile-timeline-year');
     for(i=0;i<cards.length;i++){d=cards[i].getAttribute('data-date')||'';if(d){k=d.slice(0,7);months[k]=(months[k]||0)+1;}}
     keys=Object.keys(months).sort();
-    for(i=0;i<keys.length;i++)if(months[keys[i]]>mx)mx=months[keys[i]];
-    for(i=0;i<keys.length;i++)html+='<button type="button" class="'+(keys[i]===activeMonth?'active':'')+'" data-month="'+keys[i]+'"><b style="height:'+(24+pct(months[keys[i]],mx)*58)+'px"></b><span>'+keys[i].slice(5)+'.'+keys[i].slice(2,4)+'</span></button>';
+    for(i=0;i<keys.length;i++)years[keys[i].slice(0,4)]=true;
+    if(!activeYear)activeYear=Object.keys(years).sort().reverse()[0]||'';
+    if(yearSelect&&yearSelect.value!==activeYear)yearSelect.value=activeYear;
+    for(i=0;i<keys.length;i++)if(keys[i].slice(0,4)===activeYear&&months[keys[i]]>mx)mx=months[keys[i]];
+    for(i=1;i<=12;i++){
+      k=activeYear+'-'+String(i).padStart(2,'0');
+      var count=months[k]||0;
+      html+='<button type="button" '+(count?'':'disabled')+' class="'+(k===activeMonth?'active':'')+'" data-month="'+k+'"><em>'+count+'</em><b style="height:'+(count?12+pct(count,mx)*54:2)+'px"></b><span>'+monthNames[i-1]+'</span></button>';
+    }
     q('mobile-timeline-chart').innerHTML=html;
   }
   function normalizeDates(){
@@ -45414,6 +45126,16 @@ body.js-ready #mobile-static-fallback{display:none}
       btn.className=(!val&&!any)||(val&&selectedSentiments[val])?'active':'';
     });
   }
+  function syncFilterState(){
+    var count=0;
+    if(q('mobile-theme').value)count++;
+    if(q('mobile-level').value)count++;
+    if(q('mobile-date-from').value||q('mobile-date-to').value)count++;
+    count+=Object.keys(selectedSentiments).length;
+    q('mobile-filter-count').textContent=count?String(count):'';
+    q('mobile-filter-count').style.display=count?'inline-grid':'none';
+    q('mobile-quick-reset').style.display=count?'grid':'none';
+  }
   function render(){
     var out=filtered(),shown=out.slice(0,limit),i;
     list.innerHTML='';
@@ -45423,14 +45145,17 @@ body.js-ready #mobile-static-fallback{display:none}
     q('mobile-count-note').textContent='Показано '+shown.length+' из '+out.length;
     q('mobile-more').style.display=shown.length<out.length?'block':'none';
     syncChips();
+    syncFilterState();
   }
   ['mobile-search','mobile-theme','mobile-level','mobile-sort','mobile-date-from','mobile-date-to'].forEach(function(id){
     q(id).oninput=function(){activeMonth='';limit=80;render();drawTimeline();};
   });
-  q('mobile-reset').onclick=function(){
+  function resetFilters(){
     q('mobile-search').value='';q('mobile-theme').value='';q('mobile-level').value='';q('mobile-sort').value='date';q('mobile-date-from').value='';q('mobile-date-to').value='';
-    selectedSentiments={};activeMonth='';limit=80;render();drawTimeline();
-  };
+    selectedSentiments={};activeMonth='';limit=80;render();drawTimeline();q('mobile-filter-details').open=false;
+  }
+  q('mobile-reset').onclick=resetFilters;
+  q('mobile-quick-reset').onclick=resetFilters;
   q('mobile-more').onclick=function(){limit+=80;render();};
   q('mobile-aspect-toggle').onclick=function(){aspectFrequencyMode=!aspectFrequencyMode;this.className=aspectFrequencyMode?'mobile-static-toggle active':'mobile-static-toggle';drawCharts();};
   q('mobile-neutral-toggle').onclick=function(){includeNeutralComplaints=!includeNeutralComplaints;this.className=includeNeutralComplaints?'mobile-static-toggle active':'mobile-static-toggle';drawCharts();};
@@ -45450,6 +45175,11 @@ body.js-ready #mobile-static-fallback{display:none}
     else{activeMonth=month;q('mobile-date-from').value=month+'-01';q('mobile-date-to').value=month+'-'+String(last).padStart(2,'0');q('mobile-sort').value='date';}
     limit=80;render();drawTimeline();
   };
+  q('mobile-timeline-year').onchange=function(){activeYear=this.value;activeMonth='';drawTimeline();};
+  document.addEventListener('click',function(event){
+    var details=q('mobile-filter-details');
+    if(details.open&&!details.contains(event.target))details.open=false;
+  });
   drawCharts();
   render();
 })();
