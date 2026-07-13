@@ -45041,6 +45041,9 @@ body.js-ready #mobile-static-fallback{display:none}
   function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
   function pct(part,total){return total?Math.round(part*100/total):0;}
   function themesOf(card){return (card.getAttribute('data-themes')||'').split('|').filter(Boolean);}
+  function isPositive(card){var st=Number(card.getAttribute('data-stars')||0);return st>=4||(!st&&card.getAttribute('data-sentiment')==='Положительный');}
+  function isNeutral(card){var st=Number(card.getAttribute('data-stars')||0);return st===3||(!st&&card.getAttribute('data-sentiment')==='Нейтральный');}
+  function isNegative(card){var st=Number(card.getAttribute('data-stars')||0);return (st>0&&st<=2)||(!st&&card.getAttribute('data-sentiment')==='Отрицательный');}
   function drawBars(id,rows,color){
     var max=1,i,html='';
     for(i=0;i<rows.length;i++)if(rows[i].value>max)max=rows[i].value;
@@ -45059,28 +45062,65 @@ body.js-ready #mobile-static-fallback{display:none}
     arr.sort(function(a,b){return b.value-a.value;});
     return arr.slice(0,8);
   }
-  function drawCharts(){
-    var pos=0,neu=0,neg=0,i,s,stars,groups,html='',total=cards.length;
-    for(i=0;i<cards.length;i++){
-      stars=Number(cards[i].getAttribute('data-stars')||0);
-      s=cards[i].getAttribute('data-sentiment');
-      if(stars>=4||s==='Положительный')pos++;
-      else if(stars===3||s==='Нейтральный')neu++;
+  function aspectRows(cardsSource,frequencyMode){
+    var skip={},stats={},positiveTotal=0,rows=[],i,j,ts,item;
+    (summary.praiseExcluded||[]).forEach(function(theme){skip[theme]=true;});
+    for(i=0;i<cardsSource.length;i++){
+      if(isPositive(cardsSource[i]))positiveTotal++;
+      ts=themesOf(cardsSource[i]);
+      for(j=0;j<ts.length;j++){
+        if(skip[ts[j]])continue;
+        item=stats[ts[j]]||(stats[ts[j]]={reviews:0,positive:0});
+        item.reviews++;
+        if(isPositive(cardsSource[i]))item.positive++;
+      }
+    }
+    for(var key in stats)rows.push({label:key,value:frequencyMode?pct(stats[key].positive,positiveTotal):pct(stats[key].positive,stats[key].reviews),reviews:stats[key].reviews});
+    rows.sort(function(a,b){return b.reviews-a.reviews;});
+    rows=rows.slice(0,8);
+    rows.sort(function(a,b){return b.value-a.value||b.reviews-a.reviews;});
+    return rows;
+  }
+  function updateKpis(cardsSource,pos,neu,neg){
+    var boxes=[].slice.call(root.querySelectorAll('.mobile-static-kpi')),rated=[],sum=0,i,praise,upset,total=cardsSource.length;
+    for(i=0;i<cardsSource.length;i++){
+      var stars=Number(cardsSource[i].getAttribute('data-stars')||0);
+      if(stars){rated.push(stars);sum+=stars;}
+    }
+    praise=topThemes(cardsSource.filter(isPositive),summary.praiseExcluded)[0]||{label:'нет данных',value:0};
+    upset=topThemes(cardsSource.filter(function(card){return isNegative(card)||isNeutral(card);}),summary.complaintExcluded)[0]||{label:'нет данных',value:0};
+    var values=[
+      [(rated.length? (sum/rated.length).toFixed(1):'—')+' ★',rated.length+' оценок в выборке'],
+      [pct(pos,total)+'%',pos+' из '+total],
+      [pct(neg+neu,total)+'%',(neg+neu)+' отзывов'],
+      [praise.label,praise.value+' упоминаний'],
+      [upset.label,upset.value+' упоминаний']
+    ];
+    boxes.forEach(function(box,index){box.querySelector('.mobile-static-value').textContent=values[index][0];box.querySelector('.mobile-static-hint').textContent=values[index][1];});
+  }
+  function drawCharts(cardsSource){
+    var pos=0,neu=0,neg=0,i,groups,html='',total=cardsSource.length;
+    cardsSource=cardsSource||cards;
+    for(i=0;i<cardsSource.length;i++){
+      if(isPositive(cardsSource[i]))pos++;
+      else if(isNeutral(cardsSource[i]))neu++;
       else neg++;
     }
+    updateKpis(cardsSource,pos,neu,neg);
     groups=[['Позитивные',pos,'#1c9b62'],['Нейтральные',neu,'#c79322'],['Негативные',neg,'#d0473f']];
     for(i=0;i<groups.length;i++)html+='<div class="mobile-static-bar"><span>'+groups[i][0]+'</span><b style="width:'+pct(groups[i][1],total)+'%;background:'+groups[i][2]+'"></b><em>'+groups[i][1]+'</em></div>';
     q('mobile-sentiment-chart').innerHTML=html;
-    drawBars('mobile-aspects-chart',aspectFrequencyMode?summary.aspectsFrequency:summary.aspectsSatisfaction,aspectFrequencyMode?'#141820':'#3b6ef5');
-    var praise=cards.filter(function(card){var st=Number(card.getAttribute('data-stars')||0);return st>=4||card.getAttribute('data-sentiment')==='Положительный';});
-    var bad=cards.filter(function(card){var st=Number(card.getAttribute('data-stars')||0);return includeNeutralComplaints?st<=3:st<=2;});
+    drawBars('mobile-aspects-chart',aspectRows(cardsSource,aspectFrequencyMode),aspectFrequencyMode?'#141820':'#3b6ef5');
+    var praise=cardsSource.filter(isPositive);
+    var bad=cardsSource.filter(function(card){return isNegative(card)||(includeNeutralComplaints&&isNeutral(card));});
     drawBars('mobile-praise-chart',topThemes(praise,summary.praiseExcluded),'#1c9b62');
     drawBars('mobile-complaints-chart',topThemes(bad,summary.complaintExcluded),'#d0473f');
-    drawTimeline();
+    drawTimeline(cardsSource);
   }
-  function drawTimeline(){
+  function drawTimeline(cardsSource){
     var months={},years={},keys,i,d,k,mx=1,html='',yearSelect=q('mobile-timeline-year');
-    for(i=0;i<cards.length;i++){d=cards[i].getAttribute('data-date')||'';if(d){k=d.slice(0,7);months[k]=(months[k]||0)+1;}}
+    cardsSource=cardsSource||cards;
+    for(i=0;i<cardsSource.length;i++){d=cardsSource[i].getAttribute('data-date')||'';if(d){k=d.slice(0,7);months[k]=(months[k]||0)+1;}}
     keys=Object.keys(months).sort();
     for(i=0;i<keys.length;i++)years[keys[i].slice(0,4)]=true;
     if(!activeYear)activeYear=Object.keys(years).sort().reverse()[0]||'';
@@ -45146,19 +45186,20 @@ body.js-ready #mobile-static-fallback{display:none}
     q('mobile-more').style.display=shown.length<out.length?'block':'none';
     syncChips();
     syncFilterState();
+    drawCharts(out);
   }
   ['mobile-search','mobile-theme','mobile-level','mobile-sort','mobile-date-from','mobile-date-to'].forEach(function(id){
-    q(id).oninput=function(){activeMonth='';limit=80;render();drawTimeline();};
+    q(id).oninput=function(){if(id!=='mobile-sort')activeMonth='';limit=80;render();};
   });
   function resetFilters(){
     q('mobile-search').value='';q('mobile-theme').value='';q('mobile-level').value='';q('mobile-sort').value='date';q('mobile-date-from').value='';q('mobile-date-to').value='';
-    selectedSentiments={};activeMonth='';limit=80;render();drawTimeline();q('mobile-filter-details').open=false;
+    selectedSentiments={};activeMonth='';limit=80;render();q('mobile-filter-details').open=false;
   }
   q('mobile-reset').onclick=resetFilters;
   q('mobile-quick-reset').onclick=resetFilters;
   q('mobile-more').onclick=function(){limit+=80;render();};
-  q('mobile-aspect-toggle').onclick=function(){aspectFrequencyMode=!aspectFrequencyMode;this.className=aspectFrequencyMode?'mobile-static-toggle active':'mobile-static-toggle';drawCharts();};
-  q('mobile-neutral-toggle').onclick=function(){includeNeutralComplaints=!includeNeutralComplaints;this.className=includeNeutralComplaints?'mobile-static-toggle active':'mobile-static-toggle';drawCharts();};
+  q('mobile-aspect-toggle').onclick=function(){aspectFrequencyMode=!aspectFrequencyMode;this.className=aspectFrequencyMode?'mobile-static-toggle active':'mobile-static-toggle';drawCharts(filtered());};
+  q('mobile-neutral-toggle').onclick=function(){includeNeutralComplaints=!includeNeutralComplaints;this.className=includeNeutralComplaints?'mobile-static-toggle active':'mobile-static-toggle';drawCharts(filtered());};
   q('mobile-sentiment-filter').onclick=function(event){
     var btn=event.target.closest?event.target.closest('button'):event.target;
     if(!btn||btn.tagName!=='BUTTON')return;
@@ -45173,14 +45214,13 @@ body.js-ready #mobile-static-fallback{display:none}
     var month=btn.getAttribute('data-month'),last=new Date(Number(month.slice(0,4)),Number(month.slice(5,7)),0).getDate();
     if(activeMonth===month){activeMonth='';q('mobile-date-from').value='';q('mobile-date-to').value='';}
     else{activeMonth=month;q('mobile-date-from').value=month+'-01';q('mobile-date-to').value=month+'-'+String(last).padStart(2,'0');q('mobile-sort').value='date';}
-    limit=80;render();drawTimeline();
+    limit=80;render();
   };
-  q('mobile-timeline-year').onchange=function(){activeYear=this.value;activeMonth='';drawTimeline();};
+  q('mobile-timeline-year').onchange=function(){activeYear=this.value;activeMonth='';drawTimeline(filtered());};
   document.addEventListener('click',function(event){
     var details=q('mobile-filter-details');
     if(details.open&&!details.contains(event.target))details.open=false;
   });
-  drawCharts();
   render();
 })();
   </script>
