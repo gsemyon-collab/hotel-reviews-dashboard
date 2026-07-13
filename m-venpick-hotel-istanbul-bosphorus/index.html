@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f4f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Mövenpick Hotel Istanbul Bosphorus">
+<title>Mövenpick Hotel Istanbul Bosphorus - mobile</title>
+<style id="mobile-dashboard-styles">
+html{background:#f4f5f7;-webkit-text-size-adjust:100%}
+body{margin:0;background:#f4f5f7}
+body.no-js .wrap{display:none}
+body.js-ready #mobile-static-fallback{display:none}
+.mobile-static-fallback{max-width:760px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#141820;background:#f4f5f7;box-sizing:border-box}
+.mobile-static-fallback *{box-sizing:border-box;min-width:0}
+.mobile-static-fallback header{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.mobile-static-logo{width:42px;height:42px;border-radius:8px;background:#111827;color:#fff;display:grid;place-items:center;font-weight:800}
+.mobile-static-fallback h1{font-size:21px;line-height:1.15;margin:0 0 4px}
+.mobile-static-fallback a{color:#3b6ef5;text-decoration:none}
+.mobile-static-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.mobile-static-kpi{background:#fff;border:1px solid #dde1e8;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(15,23,42,.06)}
+.mobile-static-kpi:last-child:nth-child(odd){grid-column:1/-1}
+.mobile-static-label{font-size:11px;text-transform:uppercase;color:#607087;margin-bottom:8px}
+.mobile-static-value{font-size:22px;line-height:1.05;font-weight:800;color:#050b18;word-break:break-word}
+.mobile-static-hint{font-size:12px;color:#607087;margin-top:8px}
+.mobile-static-fallback h2{font-size:17px;margin:18px 0 4px}
+.mobile-static-note{font-size:12px;color:#607087;margin-bottom:10px}
+.mobile-static-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
+.mobile-static-card{background:#fff;border:1px solid #dde1e8;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(15,23,42,.05)}
+.mobile-static-card h2{margin:0 0 10px;font-size:15px}
+.mobile-card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.mobile-card-heading h2{margin:0;white-space:nowrap}
+.mobile-card-heading select{width:96px;flex:0 0 96px;border:1px solid #dde1e8;border-radius:7px;background:#fff;color:#141820;padding:6px 8px;font:inherit;font-size:12px}
+.mobile-static-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(86px,1.25fr) 42px;gap:8px;align-items:center;margin:8px 0;font-size:12px;color:#607087;width:100%}
+.mobile-static-bar span{overflow:hidden;text-overflow:ellipsis}
+.mobile-static-bar b{display:block;height:8px;border-radius:999px;min-width:2px;max-width:100%}
+.mobile-static-bar em{font-style:normal;text-align:right;color:#141820;font-weight:700}
+.mobile-static-toggle{border:1px solid #dde1e8;background:#f4f5f7;color:#141820;border-radius:8px;padding:8px 10px;font:inherit;font-size:12px;margin:0 0 8px}
+.mobile-static-toggle.active{background:#141820;color:#fff;border-color:#141820}
+#mobile-timeline-chart{height:112px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;align-items:end;padding:4px 0 0;overflow:hidden}
+#mobile-timeline-chart button{height:104px;border:0;background:transparent;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;color:#607087;font:inherit;font-size:9px;padding:0;min-width:0}
+#mobile-timeline-chart button em{font-style:normal;font-size:8px;line-height:1;color:#607087;min-height:8px}
+#mobile-timeline-chart button b{display:block;width:min(14px,70%);border-radius:4px 4px 2px 2px;background:#3b6ef5;opacity:.65}
+#mobile-timeline-chart button:disabled{opacity:.35}
+#mobile-timeline-chart button.active b{background:#141820;opacity:1}
+#mobile-timeline-chart button.active span{color:#141820;font-weight:700}
+.mobile-filter-shell{position:sticky;top:0;z-index:20;margin:8px -4px 10px;padding:8px 4px 6px;background:rgba(244,245,247,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#mobile-search{width:100%;height:42px;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#141820;padding:10px 12px;font:inherit;font-size:14px;box-sizing:border-box}
+.mobile-filter-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) 42px;gap:7px;margin-top:7px;align-items:start}
+.mobile-filter-actions>select,.mobile-filter-actions>button,.mobile-filter-actions summary{height:40px;width:100%;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#141820;padding:9px 10px;font:inherit;font-size:12px;box-sizing:border-box}
+.mobile-filter-actions details{position:relative}
+.mobile-filter-actions summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700}
+.mobile-filter-actions summary::-webkit-details-marker{display:none}
+.mobile-filter-actions details[open] summary{background:#141820;color:#fff;border-color:#141820}
+#mobile-filter-count{width:18px;height:18px;border-radius:50%;background:#3b6ef5;color:#fff;place-items:center;font-size:10px}
+#mobile-quick-reset{display:none;place-items:center;padding:0;font-size:21px;line-height:1;background:#fff;color:#607087}
+.mobile-filter-body{position:absolute;top:46px;left:0;width:min(330px,calc(100vw - 28px));padding:12px;background:#fff;border:1px solid #cfd5df;border-radius:8px;box-shadow:0 14px 34px rgba(15,23,42,.18);display:grid;gap:10px;z-index:30}
+.mobile-filter-body label{display:grid;gap:5px;font-size:11px;color:#607087}
+.mobile-filter-body select,.mobile-filter-body input,.mobile-filter-body button{width:100%;height:40px;border:1px solid #cfd5df;border-radius:8px;background:#fff;color:#141820;padding:8px 10px;font:inherit;font-size:13px;box-sizing:border-box}
+.mobile-static-dates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mobile-static-dates label{font-size:11px;color:#607087}
+.mobile-filter-body button{background:#141820;color:#fff;border-color:#141820}
+.mobile-static-chips{display:flex;gap:6px;overflow-x:auto;margin:7px 0 6px;padding-bottom:2px;scrollbar-width:none}
+.mobile-static-chips::-webkit-scrollbar{display:none}
+.mobile-static-chips button{border:1px solid #dde1e8;background:#fff;color:#607087;border-radius:999px;padding:8px 11px;font:inherit;font-size:12px;white-space:nowrap}
+.mobile-static-chips button.active{background:#141820;color:#fff;border-color:#141820}
+.mobile-static-more{display:block;margin:16px auto 0;border:1px solid #dde1e8;background:#fff;color:#141820;border-radius:8px;padding:10px 18px;font:inherit;font-size:13px}
+.mobile-static-empty{font-size:12px;color:#607087}
+.mobile-static-review{background:#fff;border:1px solid #dde1e8;border-radius:8px;padding:13px 12px;margin:10px 0}
+.mobile-static-review-head{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+.mobile-static-review-head strong{font-size:14px}
+.mobile-static-review-head time{font-size:12px;color:#607087;white-space:nowrap}
+.mobile-static-meta{font-size:12px;color:#607087;margin-top:3px}
+.mobile-static-review p{font-size:13.5px;line-height:1.55;margin:10px 0 0;color:#252b36}
+.mobile-static-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mobile-static-tags span{font-size:11px;padding:3px 8px;border-radius:6px;background:#f4f5f7;color:#607087;border:1px solid #dde1e8}
+@media(max-width:700px){
+  .wrap{padding:16px 10px 50px}
+  header.top{display:block;margin-bottom:16px}
+  .brandmark{align-items:flex-start;margin-bottom:14px}
+  .logo{width:42px;height:42px;border-radius:8px}
+  h1{font-size:21px}
+  .pills{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .pill{text-align:center;padding:7px 8px}
+  .kpis{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .kpi{padding:12px;grid-template-rows:34px 44px minmax(18px,auto);border-radius:8px}
+  .kpi:last-child:nth-child(odd){grid-column:1/-1}
+  .kpi .val{font-size:24px}
+  .kpi .val .kpi-topic{font-size:16px}
+  .grid{gap:10px}
+  .card{padding:14px 12px;border-radius:8px}
+  .cap-action{align-items:flex-start}
+  .cap-action .chip{width:100%}
+  .controls{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+  .search,select,.level-control,.level-filter,.level-filter summary,.date-range,.reset-filters{width:100%}
+  .level-menu{left:0;right:0;min-width:0}
+  .date-range{padding-left:8px}
+  .date-range label{flex:1;min-width:0}
+  .date-range input{width:100%;min-width:0}
+  .timeline{overflow-x:auto;justify-content:flex-start;padding-bottom:4px}
+  .tbar{min-width:28px}
+  .rev{padding:13px 12px;border-radius:8px}
+  .rev .date{width:100%;margin-left:44px}
+}
+</style>
+</head>
+<body class="no-js">
+
+<section id="mobile-static-fallback" class="mobile-static-fallback">
+  <header>
+    <div class="mobile-static-logo">MÖ</div>
+    <div>
+      <h1>Mövenpick Hotel Istanbul Bosphorus</h1>
+      <a href="https://yandex.ru/maps/org/m_venpick_hotel_istanbul_bosphorus/90531074532/reviews/" target="_blank" rel="noopener">Яндекс.Карты</a>
+    </div>
+  </header>
+  <div class="mobile-static-kpis">
+    <div class="mobile-static-kpi">
+      <div class="mobile-static-label">Оценка пользователей</div>
+      <div class="mobile-static-value">4.8 ★</div>
+      <div class="mobile-static-hint">89 оценок в выборке</div>
+    </div>
+    <div class="mobile-static-kpi">
+      <div class="mobile-static-label">Позитивные отзывы</div>
+      <div class="mobile-static-value">92%</div>
+      <div class="mobile-static-hint">82 из 89</div>
+    </div>
+    <div class="mobile-static-kpi">
+      <div class="mobile-static-label">Негативные, нейтральные</div>
+      <div class="mobile-static-value">8%</div>
+      <div class="mobile-static-hint">7 отзывов</div>
+    </div>
+    <div class="mobile-static-kpi">
+      <div class="mobile-static-label">Что чаще хвалят</div>
+      <div class="mobile-static-value">Еда и напитки</div>
+      <div class="mobile-static-hint">45 упоминаний</div>
+    </div>
+    <div class="mobile-static-kpi">
+      <div class="mobile-static-label">Что чаще расстраивает</div>
+      <div class="mobile-static-value">Номер и комфорт</div>
+      <div class="mobile-static-hint">5 упоминаний</div>
+    </div></div>
+  <div class="mobile-static-grid">
+    <section class="mobile-static-card">
+      <h2>Тональность отзывов</h2>
+      <div id="mobile-sentiment-chart">
+    <div class="mobile-static-bar">
+      <span>Позитивные</span>
+      <b style="width:92%;background:#1c9b62"></b>
+      <em>82</em>
+    </div>
+    <div class="mobile-static-bar">
+      <span>Нейтральные</span>
+      <b style="width:6%;background:#c79322"></b>
+      <em>5</em>
+    </div>
+    <div class="mobile-static-bar">
+      <span>Негативные</span>
+      <b style="width:2%;background:#d0473f"></b>
+      <em>2</em>
+    </div></div>
+    </section>
+    <section class="mobile-static-card">
+      <h2>Удовлетворённость по аспектам</h2>
+      <button class="mobile-static-toggle" id="mobile-aspect-toggle" type="button">Частота среди позитивных</button>
+      <div id="mobile-aspects-chart">
+      <div class="mobile-static-bar">
+        <span>Расположение</span>
+        <b style="width:100%;background:#3b6ef5"></b>
+        <em>100</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Чистота</span>
+        <b style="width:100%;background:#3b6ef5"></b>
+        <em>100</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Цена и ценность</span>
+        <b style="width:100%;background:#3b6ef5"></b>
+        <em>100</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Персонал и сервис</span>
+        <b style="width:97%;background:#3b6ef5"></b>
+        <em>97</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Еда и напитки</span>
+        <b style="width:96%;background:#3b6ef5"></b>
+        <em>96</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Интерьер и атмосфера</span>
+        <b style="width:82%;background:#3b6ef5"></b>
+        <em>82</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Номер и комфорт</span>
+        <b style="width:81%;background:#3b6ef5"></b>
+        <em>81</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Парковка</span>
+        <b style="width:67%;background:#3b6ef5"></b>
+        <em>67</em>
+      </div></div>
+    </section>
+    <section class="mobile-static-card">
+      <h2>Что чаще хвалят</h2>
+      <div id="mobile-praise-chart">
+      <div class="mobile-static-bar">
+        <span>Еда и напитки</span>
+        <b style="width:100%;background:#1c9b62"></b>
+        <em>45</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Персонал и сервис</span>
+        <b style="width:71%;background:#1c9b62"></b>
+        <em>32</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Номер и комфорт</span>
+        <b style="width:49%;background:#1c9b62"></b>
+        <em>22</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Расположение</span>
+        <b style="width:24%;background:#1c9b62"></b>
+        <em>11</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Интерьер и атмосфера</span>
+        <b style="width:20%;background:#1c9b62"></b>
+        <em>9</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Чистота</span>
+        <b style="width:16%;background:#1c9b62"></b>
+        <em>7</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Цена и ценность</span>
+        <b style="width:9%;background:#1c9b62"></b>
+        <em>4</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Парковка</span>
+        <b style="width:4%;background:#1c9b62"></b>
+        <em>2</em>
+      </div></div>
+    </section>
+    <section class="mobile-static-card">
+      <h2>Что чаще расстраивает</h2>
+      <button class="mobile-static-toggle" id="mobile-neutral-toggle" type="button">Учитывать нейтральные</button>
+      <div id="mobile-complaints-chart">
+      <div class="mobile-static-bar">
+        <span>Номер и комфорт</span>
+        <b style="width:100%;background:#d0473f"></b>
+        <em>2</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Еда и напитки</span>
+        <b style="width:50%;background:#d0473f"></b>
+        <em>1</em>
+      </div>
+      <div class="mobile-static-bar">
+        <span>Оплата и счета</span>
+        <b style="width:50%;background:#d0473f"></b>
+        <em>1</em>
+      </div></div>
+    </section>
+    <section class="mobile-static-card mobile-static-wide">
+      <div class="mobile-card-heading">
+        <h2>Динамика отзывов</h2>
+        <select id="mobile-timeline-year" aria-label="Год динамики отзывов">
+          <option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option>
+        </select>
+      </div>
+      <div id="mobile-timeline-chart">
+      <button type="button" data-month="2026-01">
+        <em>2</em>
+        <b style="height:26px"></b>
+        <span>янв</span>
+      </button>
+      <button type="button" data-month="2026-02">
+        <em>1</em>
+        <b style="height:19px"></b>
+        <span>фев</span>
+      </button>
+      <button type="button" data-month="2026-03">
+        <em>2</em>
+        <b style="height:26px"></b>
+        <span>мар</span>
+      </button>
+      <button type="button" data-month="2026-04" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>апр</span>
+      </button>
+      <button type="button" data-month="2026-05">
+        <em>3</em>
+        <b style="height:32px"></b>
+        <span>май</span>
+      </button>
+      <button type="button" data-month="2026-06">
+        <em>2</em>
+        <b style="height:26px"></b>
+        <span>июн</span>
+      </button>
+      <button type="button" data-month="2026-07">
+        <em>3</em>
+        <b style="height:32px"></b>
+        <span>июл</span>
+      </button>
+      <button type="button" data-month="2026-08" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>авг</span>
+      </button>
+      <button type="button" data-month="2026-09" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>сен</span>
+      </button>
+      <button type="button" data-month="2026-10" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>окт</span>
+      </button>
+      <button type="button" data-month="2026-11" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>ноя</span>
+      </button>
+      <button type="button" data-month="2026-12" disabled>
+        <em>0</em>
+        <b style="height:2px"></b>
+        <span>дек</span>
+      </button></div>
+    </section>
+  </div>
+  <h2>Все отзывы</h2>
+  <div class="mobile-filter-shell">
+    <input id="mobile-search" type="search" placeholder="Поиск по отзывам и авторам">
+    <div class="mobile-filter-actions">
+      <details id="mobile-filter-details">
+        <summary>Фильтры <span id="mobile-filter-count"></span></summary>
+        <div class="mobile-filter-body">
+          <label>Тема
+            <select id="mobile-theme">
+              <option value="">Все темы</option>
+              <option value="Бронь и заселение">Бронь и заселение</option><option value="Еда и напитки">Еда и напитки</option><option value="Интерьер и атмосфера">Интерьер и атмосфера</option><option value="Мероприятия и залы">Мероприятия и залы</option><option value="Негативный опыт">Негативный опыт</option><option value="Номер и комфорт">Номер и комфорт</option><option value="Ожидание и скорость">Ожидание и скорость</option><option value="Оплата и счета">Оплата и счета</option><option value="Парковка">Парковка</option><option value="Персонал и сервис">Персонал и сервис</option><option value="Расположение">Расположение</option><option value="Спа и бассейн">Спа и бассейн</option><option value="Цена и ценность">Цена и ценность</option><option value="Чистота">Чистота</option>
+            </select>
+          </label>
+          <label>Уровень автора
+            <select id="mobile-level">
+              <option value="">Все уровни</option>
+              <option value="1-3">Уровень 1-3</option>
+              <option value="4-6">Уровень 4-6</option>
+              <option value="7-9">Уровень 7-9</option>
+              <option value="10-12">Уровень 10-12</option>
+              <option value="13-15">Уровень 13-15</option>
+              <option value="16-999">Уровень 16+</option>
+            </select>
+          </label>
+          <div class="mobile-static-dates">
+            <label>С <input id="mobile-date-from" type="date"></label>
+            <label>По <input id="mobile-date-to" type="date"></label>
+          </div>
+          <button id="mobile-reset" type="button">Сбросить все фильтры</button>
+        </div>
+      </details>
+      <select id="mobile-sort" aria-label="Сортировка отзывов">
+        <option value="date">Сначала новые</option>
+        <option value="date-asc">Сначала старые</option>
+        <option value="react">Больше реакций</option>
+        <option value="len">Самые длинные</option>
+      </select>
+      <button id="mobile-quick-reset" type="button" aria-label="Сбросить фильтры" title="Сбросить фильтры">×</button>
+    </div>
+    <div class="mobile-static-chips" id="mobile-sentiment-filter">
+      <button type="button" data-sentiment="">Все</button>
+      <button type="button" data-sentiment="Положительный">Позитивные</button>
+      <button type="button" data-sentiment="Отрицательный">Негативные</button>
+      <button type="button" data-sentiment="Нейтральный">Нейтральные</button>
+    </div>
+    <div class="mobile-static-note" id="mobile-count-note">89 отзывов внутри файла</div>
+  </div>
+  <div class="mobile-static-list">
+      <article class="mobile-static-review"
+        data-date="2026-07-10"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="9"
+        data-reactions="0"
+        data-length="66"
+        data-themes=""
+        data-search="си отличный отель. поверьте. объездил весь мир. придраться не к чему.">
+        <div class="mobile-static-review-head">
+          <strong>СИ</strong>
+          <time>10 июл 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 9</div>
+        <p>Отличный отель. Поверьте. Объездил весь мир. Придраться не к чему.</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-07-08"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="74"
+        data-themes="Еда и напитки|Номер и комфорт"
+        data-search="инкогнито 8714 отличный отель. вкусные завтраки, комфортное размещение, чистая зона спа . еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Инкогнито 8714</strong>
+          <time>8 июл 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Отличный отель. Вкусные завтраки, комфортное размещение, чистая зона спа .</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-07-07"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="11"
+        data-reactions="0"
+        data-length="105"
+        data-themes="Еда и напитки|Номер и комфорт"
+        data-search="akif ö. я бы порекомендовал хороший чистый отель, вид на верхний этаж, очень хороший ужин, который подойдет июле. еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Akif Ö.</strong>
+          <time>7 июл 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 11</div>
+        <p>Я бы порекомендовал хороший чистый отель, вид на верхний этаж, очень хороший ужин, который подойдет июле.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-06-27"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="2"
+        data-reactions="1"
+        data-length="1285"
+        data-themes="Еда и напитки|Персонал и сервис|Расположение"
+        data-search="екатерина курская очень понравилось. можно доехать от аэропорта (ist) на метро по прямой ветке до станции gayrettepe. от метро минут 15 до отеля. прямой дороги нет, но сориентироваться можно. на этой же станции метро , при выходе в переход есть выход в большой торговый центр, в котором есть ушедшие с нашего рынка магазины и неплохой фуд-корт, с достаточно бюджетными ценными. теперь про сам отель. не новая пятерка. дизайнерский ремонт, но не новый. уборка каждый день, сервис хороший. завтраки мне очень понравились, но я мясо не ем, а его там нет, один вид сосисок на горячее, пару видов ветчины в холодных закусках. зато очень вкусные сыры, мед в сотах, оливки ,фрукты ,овощи ,зелень, выпечка, йогурты , десерты все свежее, очень вкусное! в отеле не много постояльцев. спа бесплатно, часто мы были в нем с сыном единственными посетителями. хамам и финская сауна хорошие, бассейн чистейший. персонал очень доброжелательный. недалеко от отеля автобусная остановка, мы везде передвигались на автобусах и паромах ( у них это тоже общественный транспорт, можно за 70 лир на человека проплыть по маршруту через весь босфор, либо по другому маршруту на принцевы острова, маршрутов очень много ) все передвижения на общественном транспорте мы использовали карточку которую купили в метро. отель рекомендую. еда и напитки персонал и сервис расположение">
+        <div class="mobile-static-review-head">
+          <strong>Екатерина Курская</strong>
+          <time>27 июн 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 2</div>
+        <p>Очень понравилось. Можно доехать от аэропорта (IST) на метро по прямой ветке до станции Gayrettepe. От метро минут 15 до отеля. Прямой дороги нет, но сориентироваться можно. На этой же станции метро , при выходе в переход есть выход в большой торговый центр, в котором есть ушедшие с нашего рынка магазины и неплохой фуд-корт, с достаточно бюджетными ценными. Теперь про сам отель. Не новая пятерка. Дизайнерский ремонт, но не новый. Уборка каждый день, сервис хороший. Завтраки мне очень понравились, но я мясо не ем, а его там нет, один вид сосисок на горячее, пару видов ветчины в холодных закусках. Зато очень вкусные сыры, мед в сотах, оливки ,фрукты ,овощи ,зелень, выпечка, йогурты , десерты все свежее, очень вкусное! В отеле не много постояльцев. Спа бесплатно, часто мы были в нем с сыном единственными посетителями. Хамам и финская сауна хорошие, бассейн чистейший. Персонал очень доброжелательный. Недалеко от отеля автобусная остановка, мы везде передвигались на автобусах и паромах ( у них это тоже общественный транспорт, можно за 70 лир на человека проплыть по маршруту через весь Босфор, либо по другому маршруту на Принцевы острова, маршрутов очень много ) все передвижения на общественном транспорте мы использовали карточку которую купили в метро. Отель рекомендую.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span><span>Расположение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-06-14"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="3"
+        data-reactions="0"
+        data-length="73"
+        data-themes="Персонал и сервис"
+        data-search="veysel ozcicek очень хорошее обслуживание и дружелюбное лицо весь персонал замечательный персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Veysel Ozcicek</strong>
+          <time>14 июн 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 3</div>
+        <p>Очень хорошее обслуживание и дружелюбное лицо весь персонал замечательный</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-05-28"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="197"
+        data-themes="Еда и напитки|Персонал и сервис|Номер и комфорт"
+        data-search="инкогнито 0824 высокий уровень сервиса , персонала много и он выполняет работу на 5+. в номерах есть сейфы. вам могут помочь заказать такси и тд. убирают номера тщательно . можно заказать завтраки ужины в номер . еда и напитки персонал и сервис номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Инкогнито 0824</strong>
+          <time>28 мая 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Высокий уровень сервиса , персонала много и он выполняет работу на 5+. В номерах есть сейфы. Вам могут помочь заказать такси и тд. Убирают номера тщательно . Можно заказать завтраки ужины в номер .</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-05-15"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="19"
+        data-reactions="0"
+        data-length="147"
+        data-themes="Еда и напитки|Персонал и сервис"
+        data-search="сергей черных отличный отель сервис шикарный ! персонал на высоте ! х при отеле есть итальянский ресторан! и кафе с кучей мороженого! вообщем все хорошо и весело еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Сергей Черных</strong>
+          <time>15 мая 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 19</div>
+        <p>Отличный отель сервис шикарный ! Персонал на высоте ! Х при отеле есть итальянский ресторан! И кафе с кучей мороженого! Вообщем все хорошо и весело</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-05-13"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="11"
+        data-reactions="0"
+        data-length="212"
+        data-themes="Еда и напитки"
+        data-search="виктория задорожная хороший отель, вкусные завтраки, но не сказать, что ассортимент слишком разнообразный. хороший сервис! у нас был прекрасный номер с видом на босфор. шикарный панорамный ресторан на крыше. в целом все понравилось! еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Виктория Задорожная</strong>
+          <time>13 мая 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 11</div>
+        <p>Хороший отель, вкусные завтраки, но не сказать, что ассортимент слишком разнообразный. Хороший сервис! У нас был прекрасный номер с видом на Босфор. Шикарный панорамный ресторан на крыше. В целом все понравилось!</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-03-22"
+        data-stars="2"
+        data-sentiment="Отрицательный"
+        data-level="3"
+        data-reactions="0"
+        data-length="549"
+        data-themes="Еда и напитки|Номер и комфорт|Оплата и счета"
+        data-search="yiğit uslu все платное. вода в комнате, автопарковка, итд. очень странно, в номере есть 2 дополнительных, кроме воды, все платно, парковка платная, услуга парковщика, если у вас кончится 2 стакана воды, если вы купите новую воду, это тоже платно. так что я бы не ожидал таких небольших счетов от такой сети отелей, как movenpick. в номере есть кофеварка ami, но она платная. был отель, который думал, что разбогатеет на 100 долларов. нет отдельной парковки, если вы не отдадите свою машину камердинеру. вы должны припарковаться на задних улицах самостоятельно. еда и напитки номер и комфорт оплата и счета">
+        <div class="mobile-static-review-head">
+          <strong>Yiğit Uslu</strong>
+          <time>22 мар 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★☆☆☆ Отрицательный · ур. 3</div>
+        <p>Все платное. Вода в комнате, автопарковка, итд. Очень странно, в номере есть 2 дополнительных, кроме воды, все платно, парковка платная, услуга парковщика, если у вас кончится 2 стакана воды, если вы купите новую воду, это тоже платно. так что я бы не ожидал таких небольших счетов от такой сети отелей, как movenpick. В номере есть кофеварка AMI, но она платная. Был отель, который думал, что разбогатеет на 100 долларов. Нет отдельной парковки, если вы не отдадите свою машину камердинеру. Вы должны припарковаться на задних улицах самостоятельно.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span><span>Оплата и счета</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-03-20"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="0"
+        data-length="114"
+        data-themes="Еда и напитки|Персонал и сервис"
+        data-search="вероника аржаных хороший отель, вежливый персонал. красивый вид. из минусов только фен и завтрак не в ресторане на последнем этаже. еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Вероника Аржаных</strong>
+          <time>20 мар 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Хороший отель, вежливый персонал. Красивый вид. Из минусов только фен и завтрак не в ресторане на последнем этаже.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-02-01"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="15"
+        data-reactions="0"
+        data-length="40"
+        data-themes="Еда и напитки"
+        data-search="андрей гуляев офигительный ресторан на последнем этаже еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Андрей Гуляев</strong>
+          <time>1 фев 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 15</div>
+        <p>Офигительный ресторан на последнем этаже</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-01-19"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="537"
+        data-themes="Расположение|Персонал и сервис"
+        data-search="виктория титова мне очень понравился отель! сервис, персонал, уборка - всё соответствует! находится как-раз по середине между историческими достопримечательностями и торговыми центрами. очень удобно. минут 10 от ветки метро в новый аэропорт. так же по этой улице проходят автобусы, на которых удобно добираться либо галата порт, либо в торговые центры. а на такси минут 15 . мы сходили в спа на нижнем этаже.прекрасный бассейн и две бани. замечательный ресторан на верхнем этаже. а вид выше всяких похвал! 😍 отель рекомендую! большое спасибо персоналу! расположение персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Виктория Титова</strong>
+          <time>19 янв 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Мне очень понравился отель! Сервис, персонал, уборка - всё соответствует! Находится как-раз по середине между историческими достопримечательностями и торговыми центрами. Очень удобно. Минут 10 от ветки метро в Новый аэропорт. Так же по этой улице проходят автобусы, на которых удобно добираться либо Галата порт, либо в торговые центры. А на такси минут 15 . Мы сходили в Спа на нижнем этаже.Прекрасный бассейн и две бани. Замечательный ресторан на верхнем этаже. А вид выше всяких похвал! 😍 Отель рекомендую! Большое спасибо персоналу!</p>
+        <div class="mobile-static-tags"><span>Расположение</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2026-01-05"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="0"
+        data-length="7"
+        data-themes=""
+        data-search="билял гедиев уровень">
+        <div class="mobile-static-review-head">
+          <strong>Билял Гедиев</strong>
+          <time>5 янв 2026</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Уровень</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-12-31"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="0"
+        data-length="65"
+        data-themes="Еда и напитки|Персонал и сервис"
+        data-search="koba хороший завтрак, индивидуальный подход. качественное обслуживание еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Koba</strong>
+          <time>31 дек 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Хороший завтрак, индивидуальный подход. Качественное обслуживание</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-12-24"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="0"
+        data-length="29"
+        data-themes="Чистота"
+        data-search="seda barış чистый тихий тихий отель июле чистота">
+        <div class="mobile-static-review-head">
+          <strong>Seda Barış</strong>
+          <time>24 дек 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 10</div>
+        <p>Чистый тихий тихий отель июле</p>
+        <div class="mobile-static-tags"><span>Чистота</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-12-14"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="11"
+        data-reactions="1"
+        data-length="158"
+        data-themes="Еда и напитки|Номер и комфорт|Персонал и сервис"
+        data-search="александр прекрасный отель, вежливый персонал, жили два дня, красивый вид из номера на босфор! еще хочется отметить вкусные и разнообразные завтраки. вообщем рекомендую еда и напитки номер и комфорт персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Александр</strong>
+          <time>14 дек 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 11</div>
+        <p>Прекрасный отель, вежливый персонал, жили два дня, красивый вид из номера на Босфор! Еще хочется отметить вкусные и разнообразные завтраки. Вообщем рекомендую</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-12-09"
+        data-stars="4"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="179"
+        data-themes="Интерьер и атмосфера|Номер и комфорт|Парковка"
+        data-search="halil şeker чистый и красивый отель в качестве места июле. персонал был дружелюбным и заинтересованным. я думаю, что единственным недостатком является то, что у него нет собственной парковки. интерьер и атмосфера номер и комфорт парковка">
+        <div class="mobile-static-review-head">
+          <strong>Halil Şeker</strong>
+          <time>9 дек 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★☆ Положительный · ур. 6</div>
+        <p>Чистый и красивый отель в качестве места июле. Персонал был дружелюбным и заинтересованным. Я думаю, что единственным недостатком является то, что у него нет собственной парковки.</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span><span>Номер и комфорт</span><span>Парковка</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-11-30"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="13"
+        data-reactions="1"
+        data-length="245"
+        data-themes="Номер и комфорт|Еда и напитки|Персонал и сервис"
+        data-search="мария обожаю эту сеть отелей. уровень обслуживания и проживания на высоте. чисто уютно комфортно и вкусно глазам и организму. разнообразные сбалансированные шикарные завтраки, большие номера со всем необходимым. хочется возвращаться в их отели всегда. номер и комфорт еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Мария</strong>
+          <time>30 ноя 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 13</div>
+        <p>Обожаю эту сеть отелей. Уровень обслуживания и проживания на высоте. Чисто уютно комфортно и вкусно глазам и организму. Разнообразные сбалансированные шикарные завтраки, большие номера со всем необходимым. Хочется возвращаться в их отели всегда.</p>
+        <div class="mobile-static-tags"><span>Номер и комфорт</span><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-11-10"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="122"
+        data-themes="Персонал и сервис|Бронь и заселение"
+        data-search="gökhan karataş очень чистый, внимательный персонал (в основном ирем хани июле на стойке регистрации) - это тихий отель. очень рекомендую. персонал и сервис бронь и заселение">
+        <div class="mobile-static-review-head">
+          <strong>Gökhan Karataş</strong>
+          <time>10 ноя 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Очень чистый, внимательный персонал (в основном Ирем хани июле на стойке регистрации) - это тихий отель. Очень рекомендую.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Бронь и заселение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-11-03"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="40"
+        data-themes="Персонал и сервис|Еда и напитки|Номер и комфорт"
+        data-search="khoren n. обслуживание, номера, персонал, завтраки персонал и сервис еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Khoren N.</strong>
+          <time>3 ноя 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Обслуживание, Номера, Персонал, Завтраки</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-10-23"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="19"
+        data-reactions="0"
+        data-length="70"
+        data-themes="Еда и напитки"
+        data-search="ярова ирина понравилось все, ресторан на верху с панорамой как всегда великолепен! еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Ярова Ирина</strong>
+          <time>23 окт 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 19</div>
+        <p>Понравилось все, ресторан на верху с панорамой как всегда великолепен!</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-10-13"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="13"
+        data-reactions="0"
+        data-length="240"
+        data-themes="Еда и напитки|Интерьер и атмосфера"
+        data-search="alexs ustas хороший отель с хорошим расположением. отель довольно новый, красивый интерьер, всё чисто, приятное обслуживание, завтрак разнообразный и довольно вкусный. цена на такой отель по турецким ценам была довольно приемлемой. в общем, рекомендую. еда и напитки интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>ALEXS USTAS</strong>
+          <time>13 окт 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 13</div>
+        <p>Хороший отель с хорошим расположением. Отель довольно новый, красивый интерьер, всё чисто, приятное обслуживание, завтрак разнообразный и довольно вкусный. Цена на такой отель по турецким ценам была довольно приемлемой. В общем, рекомендую.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-10-05"
+        data-stars="4"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="0"
+        data-length="158"
+        data-themes="Еда и напитки|Номер и комфорт"
+        data-search="иван иванов по сравнению с прошлыми посещениями разочарован. траванулся в ресторане наверху, плюс завтраки перенесли на 1 этаж, тесно не протолкнуться. не поеду больше (( еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>иван иванов</strong>
+          <time>5 окт 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★☆ Положительный · ур. 10</div>
+        <p>По сравнению с прошлыми посещениями разочарован. Траванулся в ресторане наверху, плюс завтраки перенесли на 1 этаж, тесно не протолкнуться. Не поеду больше ((</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-10-03"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="2"
+        data-length="1012"
+        data-themes="Расположение|Еда и напитки|Номер и комфорт"
+        data-search="яна отель мне понравился. очень чисто, хороший сервис, вышколенный персонал-чувствуется уровень. удобная кровать и подушки-мне это важно. постельное бельё - премиальный сатин. завтраки-ну очень вкусные, наверное, одни из лучших в моей жизни. на мой взгляд, идеальное соотношение цены и качества. на последнем этаже отеля расположен итальянский ресторан с прекрасным видом на город. кухня и обслуживание отличные. отель немного удален от туристического центра стамбула, но как по мне-это тоже плюс. специально подбирала такое расположение -удобно и в центр, и в аэропорт, и в концертный зал фольксваген арена(ездили на концерт людовико эйнауди). минутах в 20 находится метро. спокойный тихий район, нет суеты, скученности, толп туристов. рядом мигрос. из достопримечательностей: недалеко дворец долмабахче. а добираться до центра на общественном транспорте очень удобно и достаточно быстро. быстрее, чем на такси по пробкам. если ещё поедем в стамбул, то непременно остановимся здесь. спасибо отелю за гостеприимство! расположение еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Яна</strong>
+          <time>3 окт 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Отель мне понравился. Очень чисто, хороший сервис, вышколенный персонал-чувствуется уровень. Удобная кровать и подушки-мне это важно. Постельное бельё - премиальный сатин. Завтраки-ну очень вкусные, наверное, одни из лучших в моей жизни. На мой взгляд, идеальное соотношение цены и качества. На последнем этаже отеля расположен итальянский ресторан с прекрасным видом на город. Кухня и обслуживание отличные. Отель немного удален от туристического центра Стамбула, но как по мне-это тоже плюс. Специально подбирала такое расположение -удобно и в центр, и в аэропорт, и в концертный зал Фольксваген арена(ездили на концерт Людовико Эйнауди). Минутах в 20 находится метро. Спокойный тихий район, нет суеты, скученности, толп туристов. Рядом Мигрос. Из достопримечательностей: недалеко дворец Долмабахче. А добираться до центра на общественном транспорте очень удобно и достаточно быстро. Быстрее, чем на такси по пробкам. Если ещё поедем в Стамбул, то непременно остановимся здесь. Спасибо отелю за гостеприимство!</p>
+        <div class="mobile-static-tags"><span>Расположение</span><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-09-26"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="61"
+        data-themes="Еда и напитки|Номер и комфорт"
+        data-search="любовь житарчук ❤️ все супер 💕а какой вид в ресторане на последнем этаже это 😍 еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Любовь Житарчук ❤️</strong>
+          <time>26 сен 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Все супер 💕а какой вид в ресторане на последнем этаже это 😍</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-09-25"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="60"
+        data-themes="Персонал и сервис"
+        data-search="enver ünlü я очень рекомендую очень хороших сотрудников, очень вежливых персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Enver Ünlü</strong>
+          <time>25 сен 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Я очень рекомендую очень хороших сотрудников, очень вежливых</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-09-12"
+        data-stars="4"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="0"
+        data-length="44"
+        data-themes="Парковка"
+        data-search="mertcan seven есть нехватка парковки ami, но это прекрасно парковка">
+        <div class="mobile-static-review-head">
+          <strong>Mertcan Seven</strong>
+          <time>12 сен 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★☆ Положительный · ур. 4</div>
+        <p>Есть нехватка парковки AMI, но это прекрасно</p>
+        <div class="mobile-static-tags"><span>Парковка</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-08-31"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="8"
+        data-themes=""
+        data-search="müge tatlı волнение">
+        <div class="mobile-static-review-head">
+          <strong>Müge Tatlı</strong>
+          <time>31 авг 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Волнение</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-08-31"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="46"
+        data-themes="Еда и напитки|Номер и комфорт"
+        data-search="lehus классный отель. вид из ресторана вообще бомба! еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Lehus</strong>
+          <time>31 авг 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Классный отель. Вид из ресторана вообще бомба!</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-08-18"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="24"
+        data-reactions="0"
+        data-length="55"
+        data-themes="Цена и ценность"
+        data-search="oleg добротный отель европейского уровня с разумными ценами. цена и ценность">
+        <div class="mobile-static-review-head">
+          <strong>Oleg</strong>
+          <time>18 авг 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 24</div>
+        <p>Добротный отель европейского уровня с разумными ценами.</p>
+        <div class="mobile-static-tags"><span>Цена и ценность</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-08-07"
+        data-stars="4"
+        data-sentiment="Положительный"
+        data-level="9"
+        data-reactions="0"
+        data-length="321"
+        data-themes="Персонал и сервис|Еда и напитки"
+        data-search="mustafa k. это довольно хороший отель для краткосрочного проживания или отдыха, как по расположению, так и по качеству mövenpick. персонал очень вежливый и внимательный, в отеле достаточно удобств. возможно, завтрак может быть более насыщенным. его итальянский ресторан на крыше пользуется большим успехом, а вид просто потрясающий! персонал и сервис еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Mustafa K.</strong>
+          <time>7 авг 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★☆ Положительный · ур. 9</div>
+        <p>Это довольно хороший отель для краткосрочного проживания или отдыха, как по расположению, так и по качеству Mövenpick. Персонал очень вежливый и внимательный, в отеле достаточно удобств. Возможно, завтрак может быть более насыщенным. Его итальянский ресторан на крыше пользуется большим успехом, а вид просто потрясающий!</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-08-05"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="39"
+        data-themes="Расположение|Чистота"
+        data-search="atıf aksoy очень чисто. июле. удобное расположение расположение чистота">
+        <div class="mobile-static-review-head">
+          <strong>Atıf Aksoy</strong>
+          <time>5 авг 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Очень чисто. июле. Удобное расположение</p>
+        <div class="mobile-static-tags"><span>Расположение</span><span>Чистота</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-07-21"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="0"
+        data-length="73"
+        data-themes="Еда и напитки|Персонал и сервис|Номер и комфорт"
+        data-search="dr.narmina хорошие номера, еда вкусная , приветливый персонал , хорошее расположение еда и напитки персонал и сервис номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Dr.Narmina</strong>
+          <time>21 июл 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 4</div>
+        <p>Хорошие номера, еда вкусная , приветливый персонал , хорошее расположение</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-07-13"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="0"
+        data-length="34"
+        data-themes="Персонал и сервис"
+        data-search="марина егорова шикарный отель прекрасный персонал персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Марина Егорова</strong>
+          <time>13 июл 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Шикарный отель Прекрасный персонал</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-06-15"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="0"
+        data-length="9"
+        data-themes=""
+        data-search="uknown приемлемо">
+        <div class="mobile-static-review-head">
+          <strong>Uknown</strong>
+          <time>15 июн 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Приемлемо</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-06-04"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="0"
+        data-length="109"
+        data-themes="Интерьер и атмосфера"
+        data-search="bülent a. в своем новом здании он стал гораздо более качественным, теплым, стильным и гостеприимным отелем, чем раньше. интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>Bülent A.</strong>
+          <time>4 июн 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 10</div>
+        <p>В своем новом здании он стал гораздо более качественным, теплым, стильным и гостеприимным отелем, чем раньше.</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-06-02"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="51"
+        data-themes="Еда и напитки|Номер и комфорт|Персонал и сервис"
+        data-search="şenol günaydın номера очень хорошее обслуживание в отеле и завтрак еда и напитки номер и комфорт персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Şenol Günaydın</strong>
+          <time>2 июн 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Номера очень хорошее обслуживание в отеле и завтрак</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-31"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="8"
+        data-reactions="0"
+        data-length="44"
+        data-themes="Еда и напитки"
+        data-search="mehmet c. настоящий итальянский ресторан, да витторио… еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Mehmet C.</strong>
+          <time>31 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 8</div>
+        <p>Настоящий итальянский ресторан, Да Витторио…</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-29"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="23"
+        data-reactions="1"
+        data-length="154"
+        data-themes="Еда и напитки"
+        data-search="вадим некто хороший отель, хорошие завтраки, прекрасный ресторан с восхитительным видом! единственный минус, далеко из аэропорта, днем и вечером около часа на такси:( еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>вадим некто</strong>
+          <time>29 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 23</div>
+        <p>Хороший отель, хорошие завтраки, прекрасный ресторан с восхитительным видом! Единственный минус, далеко из аэропорта, днем и вечером около часа на такси:(</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-28"
+        data-stars="4"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="1"
+        data-length="190"
+        data-themes="Чистота|Номер и комфорт|Еда и напитки"
+        data-search="елена б. номера просторные и уютные уборка не очень хорошего качества окна грязные со всех сторон, что омрачает шикарные вид. спа немного потрепан. ресторан на верхнем этаже великолепен, очень вкусно чистота номер и комфорт еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Елена Б.</strong>
+          <time>28 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★☆ Положительный · ур. 4</div>
+        <p>Номера просторные и уютные Уборка не очень хорошего качества Окна грязные со всех сторон, что омрачает шикарные вид. Спа немного потрепан. Ресторан на верхнем этаже великолепен, очень вкусно</p>
+        <div class="mobile-static-tags"><span>Чистота</span><span>Номер и комфорт</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-26"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="0"
+        data-length="143"
+        data-themes="Еда и напитки|Номер и комфорт|Расположение"
+        data-search="cengiz işık отель с отличным расположением, до которого можно легко добраться куда угодно. отличный завтрак. из окон открывается панорамный вид на стамбул. еда и напитки номер и комфорт расположение">
+        <div class="mobile-static-review-head">
+          <strong>Cengiz Işık</strong>
+          <time>26 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Отель с отличным расположением, до которого можно легко добраться куда угодно. Отличный завтрак. Из окон открывается панорамный вид на Стамбул.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span><span>Расположение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-10"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="16"
+        data-reactions="0"
+        data-length="52"
+        data-themes=""
+        data-search="илья хороший отель, все понравилось и по логистике удобно">
+        <div class="mobile-static-review-head">
+          <strong>Илья</strong>
+          <time>10 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 16</div>
+        <p>Хороший отель, все понравилось и по логистике удобно</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-03"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="1"
+        data-length="293"
+        data-themes="Еда и напитки|Расположение|Персонал и сервис"
+        data-search="марина курдогло классный отель, расположен в пешей доступности до 2-х тц. также можно и до метро добраться пешком, который едет до аэропорта! в гостинице чистые номера, персонал очень доброжелательный! на последнем этаже расположен ресторан с итальянской кухней, очень вкусная паста с ботарго! рекомендую 👍🏻 еда и напитки расположение персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Марина Курдогло</strong>
+          <time>3 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 4</div>
+        <p>Классный отель, расположен в пешей доступности до 2-х ТЦ. Также можно и до метро добраться пешком, который едет до аэропорта! В гостинице чистые номера, персонал очень доброжелательный! На последнем этаже расположен ресторан с итальянской кухней, очень вкусная паста с ботарго! Рекомендую 👍🏻</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Расположение</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-03"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="0"
+        data-length="8"
+        data-themes="Интерьер и атмосфера"
+        data-search="adem acar красивый интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>Adem Acar</strong>
+          <time>3 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 4</div>
+        <p>Красивый</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-05-02"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="9"
+        data-reactions="0"
+        data-length="14"
+        data-themes=""
+        data-search="павел брусяев всё отлично 👍">
+        <div class="mobile-static-review-head">
+          <strong>павел брусяев</strong>
+          <time>2 мая 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 9</div>
+        <p>Всё отлично 👍</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-29"
+        data-stars="2"
+        data-sentiment="Отрицательный"
+        data-level="7"
+        data-reactions="0"
+        data-length="87"
+        data-themes="Номер и комфорт"
+        data-search="start in turkey комнаты чуть просторнее, чем в курятнике. тем, у кого клаустрофобия, держитесь подальше номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Start In Turkey</strong>
+          <time>29 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★☆☆☆ Отрицательный · ур. 7</div>
+        <p>Комнаты чуть просторнее, чем в курятнике. Тем, у кого клаустрофобия, держитесь подальше</p>
+        <div class="mobile-static-tags"><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-22"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="137"
+        data-themes="Еда и напитки|Персонал и сервис"
+        data-search="альберт игбаев отель отличный. завтрак шикарный, разнообразный. шведский стол. но русскоговорящий один официант попался. общались через гугл переводчик. еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Альберт Игбаев</strong>
+          <time>22 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Отель отличный. Завтрак шикарный, разнообразный. Шведский стол. Но русскоговорящий один официант попался. Общались через гугл переводчик.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-19"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="1"
+        data-length="374"
+        data-themes="Спа и бассейн|Еда и напитки"
+        data-search="маша н. приятный отель, персонал помогает в любых вопросах, чисто, уборка в номерах каждый день. в номере не было халата и зуб. щетки. спа зона хорошая, большой бассейн, есть парная и сауна. берите с собой шапочку для бассейна) иначе ее надо будет купить. завтраки хорошие. но мало горячих блюд. расположение относительно метро удобное, близко огромный тц. в целом, все понравилось. спа и бассейн еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Маша Н.</strong>
+          <time>19 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Приятный отель, персонал помогает в любых вопросах, чисто, уборка в номерах каждый день. В номере не было халата и зуб. щетки. Спа зона хорошая, большой бассейн, есть парная и сауна. Берите с собой шапочку для бассейна) иначе ее надо будет купить. Завтраки хорошие. Но мало горячих блюд. Расположение относительно метро удобное, близко огромный ТЦ. В целом, все понравилось.</p>
+        <div class="mobile-static-tags"><span>Спа и бассейн</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-18"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="63"
+        data-themes="Персонал и сервис|Цена и ценность"
+        data-search="uygar a. качество, хорошее обслуживание, дружелюбное лицо, разумная цена персонал и сервис цена и ценность">
+        <div class="mobile-static-review-head">
+          <strong>Uygar A.</strong>
+          <time>18 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Качество, хорошее обслуживание, дружелюбное лицо, разумная цена</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Цена и ценность</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-14"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="18"
+        data-reactions="1"
+        data-length="1348"
+        data-themes="Персонал и сервис|Расположение|Еда и напитки"
+        data-search="omgfreezy хороший отель, могу рекомендовать метро в пяти минутах ходьбы. тц зорлу видно прямо из окна, можно дотянуться рукой, однако напрямую к нему подойти нельзя из-за транспортной развязки. главный вход вообще прямо с шоссе на котором и тротуара то нет. поэтому ходили в зорлу через ту самую станцию метро в пяти минутах от отеля. спускаешься в переход и дальше по указателям до тц. спускаться к поездам не нужно, путь до торгового центра без оплаты. однако топать пол километра. так проще чем по поверхности, поверьте завтраки неплохие, но много всякой мелочи, а вот чего-то более существенного нет. из существенного: подобие яичницы, полусырая тертая картошка, иногда сосиски, а так же панкейки и вафли. много выпечки. несколько видов сыра, колбасы. фрукты. всякие топпинги и соусы. наестся можно, но не то чтоб очень) эспрессо из кофемашины хорош! когда я спросил про спа, человек на ресепшене сказал, что это за дополнительную плату. спустился в спа, а там мне сказали, что все бесплатно. я так интересовался, потому что на сайте отеля всё максимально запутанно написано в номерах шумоизоляция напрочь отсутствует, под дверью в коридор - щель. слышно всё, что творится в коридоре и в соседних номерах не смотря на всё вышеописанное отелем доволен. все приветливые и дружелюбные, улыбаются. особенно персонал спа молодцы. номера чистые, уборка хорошая персонал и сервис расположение еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>omgfreezy</strong>
+          <time>14 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 18</div>
+        <p>Хороший отель, могу рекомендовать Метро в пяти минутах ходьбы. ТЦ Зорлу видно прямо из окна, можно дотянуться рукой, однако напрямую к нему подойти нельзя из-за транспортной развязки. Главный вход вообще прямо с шоссе на котором и тротуара то нет. Поэтому ходили в Зорлу через ту самую станцию метро в пяти минутах от отеля. Спускаешься в переход и дальше по указателям до ТЦ. Спускаться к поездам не нужно, путь до торгового центра без оплаты. Однако топать пол километра. Так проще чем по поверхности, поверьте Завтраки неплохие, но много всякой мелочи, а вот чего-то более существенного нет. Из существенного: подобие яичницы, полусырая тертая картошка, иногда сосиски, а так же панкейки и вафли. Много выпечки. Несколько видов сыра, колбасы. Фрукты. Всякие топпинги и соусы. Наестся можно, но не то чтоб очень) Эспрессо из кофемашины хорош! Когда я спросил про СПА, человек на ресепшене сказал, что это за дополнительную плату. Спустился в СПА, а там мне сказали, что все бесплатно. Я так интересовался, потому что на сайте отеля всё максимально запутанно написано В номерах шумоизоляция напрочь отсутствует, под дверью в коридор - щель. Слышно всё, что творится в коридоре и в соседних номерах Не смотря на всё вышеописанное отелем доволен. Все приветливые и дружелюбные, улыбаются. Особенно персонал СПА молодцы. Номера чистые, уборка хорошая</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Расположение</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-11"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="11"
+        data-reactions="0"
+        data-length="70"
+        data-themes="Персонал и сервис|Чистота"
+        data-search="евгения захарова останавливаюсь почти всегда здесь, чисто, уютно, приветливый персонал. персонал и сервис чистота">
+        <div class="mobile-static-review-head">
+          <strong>Евгения Захарова</strong>
+          <time>11 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 11</div>
+        <p>Останавливаюсь почти всегда здесь, чисто, уютно, приветливый персонал.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Чистота</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-06"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="14"
+        data-reactions="0"
+        data-length="145"
+        data-themes="Номер и комфорт"
+        data-search="okay i̇ğdelipınar эсентепе - это давний 5-звездочный отель, совсем недавно входивший в сеть отелей mövenpick, из многих номеров которого открывается вид на босфор. номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Okay İğdelipınar</strong>
+          <time>6 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 14</div>
+        <p>Эсентепе - это давний 5-звездочный отель, совсем недавно входивший в сеть отелей Mövenpick, из многих номеров которого открывается вид на Босфор.</p>
+        <div class="mobile-static-tags"><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-04-01"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="8"
+        data-reactions="0"
+        data-length="79"
+        data-themes="Еда и напитки|Мероприятия и залы|Номер и комфорт"
+        data-search="sibel gül мы провели здесь нашу свадьбу в октябре, еда была отличной, интересен номер 10. еда и напитки мероприятия и залы номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>sibel gül</strong>
+          <time>1 апр 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 8</div>
+        <p>Мы провели здесь нашу свадьбу в октябре, еда была отличной, интересен номер 10.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Мероприятия и залы</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-03-11"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="25"
+        data-reactions="0"
+        data-length="32"
+        data-themes="Интерьер и атмосфера|Номер и комфорт|Чистота"
+        data-search="green tech bi̇o комфортабельный и стильный отель интерьер и атмосфера номер и комфорт чистота">
+        <div class="mobile-static-review-head">
+          <strong>GREEN TECH BİO</strong>
+          <time>11 мар 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 25</div>
+        <p>Комфортабельный и стильный отель</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span><span>Номер и комфорт</span><span>Чистота</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-03-09"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="3"
+        data-reactions="0"
+        data-length="59"
+        data-themes="Интерьер и атмосфера|Персонал и сервис"
+        data-search="haci k. персонал в очень хорошем месте, приятная семейная атмосфера интерьер и атмосфера персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Haci K.</strong>
+          <time>9 мар 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 3</div>
+        <p>Персонал в очень хорошем месте, приятная семейная атмосфера</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-03-06"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="3"
+        data-reactions="0"
+        data-length="61"
+        data-themes=""
+        data-search="cagatay o. итальянский шеф-повар наверху очень успешен. пейзаж невыразим">
+        <div class="mobile-static-review-head">
+          <strong>Cagatay O.</strong>
+          <time>6 мар 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 3</div>
+        <p>Итальянский шеф-повар наверху очень успешен. Пейзаж невыразим</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-03-01"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="0"
+        data-length="150"
+        data-themes="Персонал и сервис|Интерьер и атмосфера"
+        data-search="anastasia gadeeva красивый отель в пешей доступности от босфора, супер быстрый сервис, персонал лощеный и вежливый. лучший выбор из тройки больших отелей в этом районе. персонал и сервис интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>Anastasia Gadeeva</strong>
+          <time>1 мар 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 10</div>
+        <p>Красивый отель в пешей доступности от Босфора, супер быстрый сервис, персонал лощеный и вежливый. Лучший выбор из тройки больших отелей в этом районе.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2025-02-20"
+        data-stars="3"
+        data-sentiment="Нейтральный"
+        data-level="21"
+        data-reactions="0"
+        data-length="908"
+        data-themes="Интерьер и атмосфера|Номер и комфорт|Парковка"
+        data-search="ediz saran отель mövenpick bosphorus известен своими комфортабельными и стильными номерами. общая атмосфера и качество обслуживания в отеле довольно хорошие. он предлагает удобный вариант как для деловых поездок, так и для туристического проживания. номера чистые, современные и комфортабельно оформленные. июле 2014 года в отеле был открыт ресторан. его расположение также дает ему преимущество в том, что он расположен в центре города. но отсутствие собственной парковки у такого отеля - серьезный недостаток. досадно, что гостям приходится платить камердинеру дополнительную плату за парковку своего автомобиля. от отеля такого уровня можно ожидать беспрепятственного предоставления услуг парковки. в то время как парковка является важной потребностью, особенно в городе с интенсивным движением, таком как стамбул, тот факт, что она платная и зависит от внешнего вида, может негативно повлиять на впечатления гостей. интерьер и атмосфера номер и комфорт парковка">
+        <div class="mobile-static-review-head">
+          <strong>Ediz Saran</strong>
+          <time>20 фев 2025</time>
+        </div>
+        <div class="mobile-static-meta">★★★☆☆ Нейтральный · ур. 21</div>
+        <p>Отель Mövenpick Bosphorus известен своими комфортабельными и стильными номерами. Общая атмосфера и качество обслуживания в отеле довольно хорошие. Он предлагает удобный вариант как для деловых поездок, так и для туристического проживания. Номера чистые, современные и комфортабельно оформленные. июле 2014 года в отеле был открыт ресторан. Его расположение также дает ему преимущество в том, что он расположен в центре города. Но отсутствие собственной парковки у такого отеля - серьезный недостаток. Досадно, что гостям приходится платить камердинеру дополнительную плату за парковку своего автомобиля. От отеля такого уровня можно ожидать беспрепятственного предоставления услуг парковки. В то время как парковка является важной потребностью, особенно в городе с интенсивным движением, таком как Стамбул, тот факт, что она платная и зависит от внешнего вида, может негативно повлиять на впечатления гостей.</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span><span>Номер и комфорт</span><span>Парковка</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-12-29"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="1"
+        data-length="21"
+        data-themes=""
+        data-search="андрей марковский удобно, качественно;)">
+        <div class="mobile-static-review-head">
+          <strong>Андрей Марковский</strong>
+          <time>29 дек 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 10</div>
+        <p>Удобно, качественно;)</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-12-23"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="11"
+        data-reactions="0"
+        data-length="182"
+        data-themes="Персонал и сервис|Бронь и заселение"
+        data-search="вадим распономарев отличный отель. заботливый персонал. из важного: 1. при заселении депозит 100$ или 100€. нужно это учесть. 2. всё что возле мини бара - это не комплимент, это все по ценам мини бара. персонал и сервис бронь и заселение">
+        <div class="mobile-static-review-head">
+          <strong>Вадим Распономарев</strong>
+          <time>23 дек 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 11</div>
+        <p>Отличный отель. Заботливый персонал. Из важного: 1. при заселении депозит 100$ или 100€. Нужно это учесть. 2. Всё что возле мини бара - это не комплимент, это все по ценам мини бара.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Бронь и заселение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-12-21"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="9"
+        data-reactions="0"
+        data-length="104"
+        data-themes="Персонал и сервис"
+        data-search="katesot отличный отель уровня 5 звёзд. персонал вполне себе, могут быть вопросы- идеально если говорите на англ. персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Katesot</strong>
+          <time>21 дек 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 9</div>
+        <p>Отличный отель уровня 5 звёзд. Персонал вполне себе, могут быть вопросы- идеально если говорите на англ.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-12-13"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="8"
+        data-reactions="0"
+        data-length="120"
+        data-themes="Ожидание и скорость|Персонал и сервис"
+        data-search="стасия мироненко хороший отель, близко к торговому центру зорлу. обширный минибар, много снеков, все платное. рум сервис работает быстро. ожидание и скорость персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Стасия Мироненко</strong>
+          <time>13 дек 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 8</div>
+        <p>Хороший отель, близко к торговому центру Зорлу. Обширный минибар, много снеков, все платное. Рум сервис работает быстро.</p>
+        <div class="mobile-static-tags"><span>Ожидание и скорость</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-12-12"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="1"
+        data-length="42"
+        data-themes=""
+        data-search="mustafa d. довольно хороший отель с высоким качеством">
+        <div class="mobile-static-review-head">
+          <strong>Mustafa D.</strong>
+          <time>12 дек 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Довольно хороший отель с высоким качеством</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-11-23"
+        data-stars="4"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="1"
+        data-length="55"
+        data-themes="Еда и напитки"
+        data-search="hakn sezer хорошее местечко. удачи с гигиеной. завтрак тоже удался еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Hakn Sezer</strong>
+          <time>23 ноя 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★☆ Положительный · ур. 6</div>
+        <p>Хорошее местечко. Удачи с гигиеной. Завтрак тоже удался</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-11-21"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="1"
+        data-length="30"
+        data-themes="Еда и напитки"
+        data-search="murat d. качественная итальянская кухня еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>murat d.</strong>
+          <time>21 ноя 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 4</div>
+        <p>Качественная итальянская кухня</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-11-13"
+        data-stars="3"
+        data-sentiment="Нейтральный"
+        data-level="4"
+        data-reactions="1"
+        data-length="51"
+        data-themes="Негативный опыт|Номер и комфорт"
+        data-search="ольга чернова не понравилось наполнение в номере . хорошая 4 не 5 негативный опыт номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Ольга Чернова</strong>
+          <time>13 ноя 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★☆☆ Нейтральный · ур. 4</div>
+        <p>Не понравилось наполнение в номере . Хорошая 4 не 5</p>
+        <div class="mobile-static-tags"><span>Негативный опыт</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-10-22"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="2"
+        data-reactions="1"
+        data-length="214"
+        data-themes="Еда и напитки|Персонал и сервис"
+        data-search="василий п. отличный отель, вежливый и аккуратный персонал, очень хорошая кухня. итальянский ресторан с самым хорошим видом на босфор. завктраки, включенные в стоимость проживания, разнообразные , правда привычных каш не было. еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Василий П.</strong>
+          <time>22 окт 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 2</div>
+        <p>Отличный отель, вежливый и аккуратный персонал, очень хорошая кухня. Итальянский ресторан с самым хорошим видом на Босфор. Завктраки, включенные в стоимость проживания, разнообразные , правда привычных каш не было.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-10-21"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="3"
+        data-reactions="1"
+        data-length="113"
+        data-themes="Еда и напитки|Номер и комфорт|Расположение"
+        data-search="айгуль исайкина прекрасный отель. чистые номера, удобно расположен, вкусная еда в кафе на 1 этаже и в ресторане на верхнем этаже. еда и напитки номер и комфорт расположение">
+        <div class="mobile-static-review-head">
+          <strong>Айгуль Исайкина</strong>
+          <time>21 окт 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 3</div>
+        <p>Прекрасный отель. Чистые номера, удобно расположен, вкусная еда в кафе на 1 этаже и в ресторане на верхнем этаже.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span><span>Расположение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-10-05"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="1"
+        data-length="8"
+        data-themes="Интерьер и атмосфера"
+        data-search="sariye av красивый интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>Sariye Av</strong>
+          <time>5 окт 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Красивый</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-09-27"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="0"
+        data-length="85"
+        data-themes="Еда и напитки"
+        data-search="роман к. топ на бешекташе. 100 лир на такси до зорлы, 150 лир до галатапорт. отличный завтрак. еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Роман К.</strong>
+          <time>27 сен 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 10</div>
+        <p>Топ на Бешекташе. 100 лир на такси до Зорлы, 150 лир до Галатапорт. Отличный завтрак.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-08-13"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="1"
+        data-length="159"
+        data-themes="Персонал и сервис|Чистота|Еда и напитки"
+        data-search="penti apsny рекомендую от всей души. отличный сервис, отзывчивый персонал. чистые комнаты. прекрасный завтрак. новый ремонт, ощущение чистоты и свежести. хорошая спа зона. персонал и сервис чистота еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Penti Apsny</strong>
+          <time>13 авг 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Рекомендую от всей души. Отличный сервис, отзывчивый персонал. Чистые комнаты. Прекрасный завтрак. Новый ремонт, ощущение чистоты и свежести. Хорошая спа зона.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Чистота</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-05-30"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="17"
+        data-reactions="1"
+        data-length="12"
+        data-themes=""
+        data-search="алексей герасименко хороший отел">
+        <div class="mobile-static-review-head">
+          <strong>Алексей Герасименко</strong>
+          <time>30 мая 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 17</div>
+        <p>Хороший отел</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-05-22"
+        data-stars="3"
+        data-sentiment="Нейтральный"
+        data-level="22"
+        data-reactions="0"
+        data-length="33"
+        data-themes="Интерьер и атмосфера"
+        data-search="alexey zz просто отель. спорт зал в подвале интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>Alexey zz</strong>
+          <time>22 мая 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★☆☆ Нейтральный · ур. 22</div>
+        <p>Просто отель. Спорт зал в подвале</p>
+        <div class="mobile-static-tags"><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-04-17"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="8"
+        data-reactions="1"
+        data-length="305"
+        data-themes="Расположение|Чистота|Еда и напитки"
+        data-search="ярослав немировский номера большие, белье и полотенца новые. чисто. на завтрак не ходили. минут 20 пешком до набережной. рядом метро, остановка нескольких маршрутов автобуса. заказали такси в аэропорт через портье, таксист утверждал, что портье взял с него за право отвезти нас 250 лир. вероятно дешевле поймать такси самому. расположение чистота еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Ярослав Немировский</strong>
+          <time>17 апр 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 8</div>
+        <p>Номера большие, белье и полотенца новые. Чисто. На завтрак не ходили. Минут 20 пешком до набережной. Рядом метро, остановка нескольких маршрутов автобуса. Заказали такси в аэропорт через портье, таксист утверждал, что портье взял с него за право отвезти нас 250 лир. Вероятно дешевле поймать такси самому.</p>
+        <div class="mobile-static-tags"><span>Расположение</span><span>Чистота</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-03-22"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="11"
+        data-reactions="0"
+        data-length="7"
+        data-themes=""
+        data-search="юлия иванова perfect">
+        <div class="mobile-static-review-head">
+          <strong>Юлия Иванова</strong>
+          <time>22 мар 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 11</div>
+        <p>Perfect</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-03-18"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="9"
+        data-reactions="3"
+        data-length="270"
+        data-themes="Еда и напитки|Цена и ценность|Персонал и сервис"
+        data-search="мария сергеева классный отель, рестик на последнем этаже с шикарным видом и очень вкусной едой! персонал дружелюбный. завтраки правда не очень, все время не хватало чего-то, но может потому, что приходила я к 10. для бизнес встреч и командировки - оптимальное соотношение цена/качество еда и напитки цена и ценность персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Мария Сергеева</strong>
+          <time>18 мар 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 9</div>
+        <p>Классный отель, рестик на последнем этаже с шикарным видом и очень вкусной едой! Персонал дружелюбный. Завтраки правда не очень, все время не хватало чего-то, но может потому, что приходила я к 10. Для бизнес встреч и командировки - оптимальное соотношение цена/качество</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Цена и ценность</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2024-01-24"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="2"
+        data-length="14"
+        data-themes=""
+        data-search="магомед к. классный отель">
+        <div class="mobile-static-review-head">
+          <strong>Магомед К.</strong>
+          <time>24 янв 2024</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 4</div>
+        <p>Классный отель</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-11-28"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="4"
+        data-reactions="1"
+        data-length="15"
+        data-themes=""
+        data-search="меруерт б. класссное место">
+        <div class="mobile-static-review-head">
+          <strong>Меруерт Б.</strong>
+          <time>28 ноя 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 4</div>
+        <p>класссное место</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-11-15"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="0"
+        data-length="194"
+        data-themes="Номер и комфорт|Еда и напитки"
+        data-search="махмуд м. ночевали семьёй три ночи. с окна был вид на мост &quot;босфор&quot;, особенно он красив ночью. номер комфортный, завтрак отличный, отношение тёплое. нам всё понравилось, приедем ещё. всем большое спасибо! номер и комфорт еда и напитки">
+        <div class="mobile-static-review-head">
+          <strong>Махмуд М.</strong>
+          <time>15 ноя 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Ночевали семьёй три ночи. С окна был вид на мост &quot;Босфор&quot;, особенно он красив ночью. Номер комфортный, завтрак отличный, отношение тёплое. Нам всё понравилось, приедем ещё. Всем большое спасибо!</p>
+        <div class="mobile-static-tags"><span>Номер и комфорт</span><span>Еда и напитки</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-11-02"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="7"
+        data-reactions="1"
+        data-length="271"
+        data-themes="Еда и напитки|Расположение"
+        data-search="мария кириллова сервис в отеле отличный, интерьер уютный, завтраки на 4+, месторасположение удобное, три станции метро в шаговой доступности. что бы не слышать шум и гул мегаполиса берите этаж повыше, там и вид на город отличный. на крыше итальянский ресторан- вид потрясный, кухня на 4. еда и напитки расположение">
+        <div class="mobile-static-review-head">
+          <strong>Мария Кириллова</strong>
+          <time>2 ноя 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 7</div>
+        <p>Сервис в отеле отличный, интерьер уютный, завтраки на 4+, месторасположение удобное, три станции метро в шаговой доступности. Что бы не слышать шум и гул мегаполиса берите этаж повыше, там и вид на город отличный. На крыше итальянский ресторан- вид потрясный, кухня на 4.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Расположение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-10-09"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="17"
+        data-reactions="2"
+        data-length="188"
+        data-themes="Персонал и сервис|Еда и напитки|Номер и комфорт"
+        data-search="татьяна хмура красивые номера и приветливый персонал. вид с верхних этажей потрясающий. вкусные завтраки. отлично работает румсервис-порции огромные можно брать одну на двоих. не хватает зубных наборов. персонал и сервис еда и напитки номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Татьяна Хмура</strong>
+          <time>9 окт 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 17</div>
+        <p>Красивые номера и приветливый персонал. Вид с верхних этажей потрясающий. Вкусные завтраки. Отлично работает румсервис-порции огромные можно брать одну на двоих. Не хватает зубных наборов.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Еда и напитки</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-10-07"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="17"
+        data-reactions="0"
+        data-length="76"
+        data-themes=""
+        data-search="сергей отель как отель. все устроило, претензий нет, но и ничего сверестественного.">
+        <div class="mobile-static-review-head">
+          <strong>Сергей</strong>
+          <time>7 окт 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 17</div>
+        <p>Отель как отель. Все устроило, претензий нет, но и ничего сверестественного.</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-10-05"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="5"
+        data-reactions="1"
+        data-length="19"
+        data-themes=""
+        data-search="тина отличный отель 👍🏼">
+        <div class="mobile-static-review-head">
+          <strong>Тина</strong>
+          <time>5 окт 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 5</div>
+        <p>Отличный отель 👍🏼</p>
+        
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-09-29"
+        data-stars="3"
+        data-sentiment="Нейтральный"
+        data-level="17"
+        data-reactions="1"
+        data-length="14"
+        data-themes="Персонал и сервис"
+        data-search="давид сервис зромает персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Давид</strong>
+          <time>29 сен 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★☆☆ Нейтральный · ур. 17</div>
+        <p>Сервис зромает</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-09-04"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="3"
+        data-length="307"
+        data-themes="Еда и напитки|Персонал и сервис"
+        data-search="маша журкова отель очень понравился! персонал вежливый и всегда готов помогать. особенно очень понравился ресторан, с панорамным видом! очень красиво и невероятно вкусная еда, ресторан итальянский! подача блюд и коктейли ну просто на высшем уровне! спасибо огромное! в стамбуле это одно из самых любимых мест теперь!!!!! еда и напитки персонал и сервис">
+        <div class="mobile-static-review-head">
+          <strong>Маша Журкова</strong>
+          <time>4 сен 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Отель очень понравился! Персонал вежливый и всегда готов помогать. Особенно очень понравился ресторан, с панорамным видом! Очень красиво и невероятно вкусная еда, ресторан итальянский! Подача блюд и коктейли ну просто на высшем уровне! Спасибо огромное! В Стамбуле это одно из самых любимых мест теперь!!!!!</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Персонал и сервис</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-08-03"
+        data-stars="3"
+        data-sentiment="Нейтральный"
+        data-level="5"
+        data-reactions="6"
+        data-length="1287"
+        data-themes="Еда и напитки|Спа и бассейн|Номер и комфорт"
+        data-search="владимир воробьев 🌟🌟🌟 – &quot;один раз – и никогда больше!&quot; или &quot;как я научился не переживать и полюбил вид на стройку&quot; 🏢 номера: чистые и условно красивые, особенно если не смотреть на стройку за окном. скоро вместо вида на босфор, у вас будет прекрасный вид на здание напротив! #постройкасвидомнагостиницу 🍝 ресторан: вкусная еда и потрясающий вид. пока что. 🛁 удобства: полотенца вам достанутся, но халат и утюг – эти легендарные артефакты отеля вам не видать. поздний выезд? конечно, но только три часа. #безутюганеживу 🏋️‍♂️ фитнесс и спа: тренажеры годные, но бассейн приглашает вас на подводный квест в поисках отколотой плитки. на воду и шапочки здесь отдельный билет. #допзаработокнашапочках 🍳 завтрак: если вы мясоед, то приготовьтесь к битве с сыром и овощами. фрукты и зелень вам в союзники. #мясогде? 📶 wi-fi: превосходен для тех, кто хочет почувствовать себя в 90-х. zoom-звонки вам не по зубам, зато аудио квакает, как настоящая утка! #dialupвоскресение ❗ резюме: этот отель перепутал звёзды с качеством. средняя тройка, никак не пять звезд. если хотите вид на босфор, поспешите, пока здание напротив не достроили. и запаситесь шапочками для плавания, здесь они как валюта! 💬 рекомендация: не рекомендую, кроме тех, кто ищет впечатления от дополнительного заработка на воде и шапочках. еда и напитки спа и бассейн номер и комфорт">
+        <div class="mobile-static-review-head">
+          <strong>Владимир Воробьев</strong>
+          <time>3 авг 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★☆☆ Нейтральный · ур. 5</div>
+        <p>🌟🌟🌟 – &quot;Один раз – и никогда больше!&quot; или &quot;Как я научился не переживать и полюбил вид на стройку&quot; 🏢 Номера: Чистые и условно красивые, особенно если не смотреть на стройку за окном. Скоро вместо вида на Босфор, у вас будет прекрасный вид на здание напротив! #ПостройкаСВидомНаГостиницу 🍝 Ресторан: Вкусная еда и потрясающий вид. Пока что. 🛁 Удобства: Полотенца вам достанутся, но халат и утюг – эти легендарные артефакты отеля вам не видать. Поздний выезд? Конечно, но только три часа. #БезУтюгаНеЖиву 🏋️‍♂️ Фитнесс и СПА: Тренажеры годные, но бассейн приглашает вас на подводный квест в поисках отколотой плитки. На воду и шапочки здесь отдельный билет. #ДопЗаработокНаШапочках 🍳 Завтрак: Если вы мясоед, то приготовьтесь к битве с сыром и овощами. Фрукты и зелень вам в союзники. #МясоГде? 📶 Wi-Fi: Превосходен для тех, кто хочет почувствовать себя в 90-х. Zoom-звонки вам не по зубам, зато аудио квакает, как настоящая утка! #DialUpВоскресение ❗ Резюме: Этот отель перепутал звёзды с качеством. Средняя тройка, никак не пять звезд. Если хотите вид на Босфор, поспешите, пока здание напротив не достроили. И запаситесь шапочками для плавания, здесь они как валюта! 💬 Рекомендация: Не рекомендую, кроме тех, кто ищет впечатления от дополнительного заработка на воде и шапочках.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Спа и бассейн</span><span>Номер и комфорт</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-06-21"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="10"
+        data-reactions="0"
+        data-length="128"
+        data-themes="Еда и напитки|Номер и комфорт|Расположение"
+        data-search="алексей сам отель очень хороший - просторные номера, вкусные завтраки. но вот расположение не самое удачное. близко к оживленной трассе. еда и напитки номер и комфорт расположение">
+        <div class="mobile-static-review-head">
+          <strong>Алексей</strong>
+          <time>21 июн 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 10</div>
+        <p>Сам отель очень хороший - просторные номера, вкусные завтраки. Но вот расположение не самое удачное. Близко к оживленной трассе.</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Номер и комфорт</span><span>Расположение</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-05-14"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="6"
+        data-reactions="1"
+        data-length="82"
+        data-themes="Еда и напитки|Интерьер и атмосфера"
+        data-search="larisa панорамный ресторан в этом отеле. итальянская кухня. вкусно и красиво, рекомендую! еда и напитки интерьер и атмосфера">
+        <div class="mobile-static-review-head">
+          <strong>Larisa</strong>
+          <time>14 мая 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 6</div>
+        <p>Панорамный ресторан в этом отеле. Итальянская кухня. Вкусно и красиво, рекомендую!</p>
+        <div class="mobile-static-tags"><span>Еда и напитки</span><span>Интерьер и атмосфера</span></div>
+      </article>
+      <article class="mobile-static-review"
+        data-date="2023-03-01"
+        data-stars="5"
+        data-sentiment="Положительный"
+        data-level="15"
+        data-reactions="0"
+        data-length="259"
+        data-themes="Персонал и сервис|Еда и напитки|Цена и ценность"
+        data-search="dilaver kerimov оправдывает все свои звёзды. очень вежливый и ненавязчивый персонал. кухня хорошая очень. завтраки на 21-м этаже со стеклянными обзорными стенами вообще сказка. сервис на достойном уровне. в минусовых этажах хороший спортзал и сауна. ну и цена соответственно. персонал и сервис еда и напитки цена и ценность">
+        <div class="mobile-static-review-head">
+          <strong>Dilaver Kerimov</strong>
+          <time>1 мар 2023</time>
+        </div>
+        <div class="mobile-static-meta">★★★★★ Положительный · ур. 15</div>
+        <p>Оправдывает все свои звёзды. Очень вежливый и ненавязчивый персонал. Кухня хорошая очень. Завтраки на 21-м этаже со стеклянными обзорными стенами вообще сказка. Сервис на достойном уровне. В минусовых этажах хороший спортзал и сауна. Ну и цена соответственно.</p>
+        <div class="mobile-static-tags"><span>Персонал и сервис</span><span>Еда и напитки</span><span>Цена и ценность</span></div>
+      </article></div>
+  <button class="mobile-static-more" id="mobile-more" type="button">Показать ещё</button>
+  <script>
+(function(){
+  var root=document.getElementById('mobile-static-fallback');
+  if(!root)return;
+  var summary={"aspectsSatisfaction":[{"label":"Расположение","value":100},{"label":"Чистота","value":100},{"label":"Цена и ценность","value":100},{"label":"Персонал и сервис","value":97},{"label":"Еда и напитки","value":96},{"label":"Интерьер и атмосфера","value":82},{"label":"Номер и комфорт","value":81},{"label":"Парковка","value":67}],"aspectsFrequency":[{"label":"Еда и напитки","value":55},{"label":"Персонал и сервис","value":39},{"label":"Номер и комфорт","value":27},{"label":"Расположение","value":13},{"label":"Интерьер и атмосфера","value":11},{"label":"Чистота","value":9},{"label":"Цена и ценность","value":5},{"label":"Парковка","value":2}],"praiseExcluded":["Негативный опыт","Шум","Безопасность и доступ","Оснащение и поломки","Оплата и счета","Общее впечатление","Лояльность и рекомендации"],"complaintExcluded":["Лояльность и рекомендации","Общее впечатление"]};
+  var cards=[].slice.call(root.querySelectorAll('.mobile-static-review'));
+  var list=root.querySelector('.mobile-static-list');
+  var selectedSentiments={};
+  var includeNeutralComplaints=false;
+  var aspectFrequencyMode=false;
+  var activeMonth='';
+  var activeYear=q('mobile-timeline-year')?q('mobile-timeline-year').value:'';
+  var limit=80;
+  var monthNames=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  function q(id){return document.getElementById(id);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  function pct(part,total){return total?Math.round(part*100/total):0;}
+  function themesOf(card){return (card.getAttribute('data-themes')||'').split('|').filter(Boolean);}
+  function isPositive(card){var st=Number(card.getAttribute('data-stars')||0);return st>=4||(!st&&card.getAttribute('data-sentiment')==='Положительный');}
+  function isNeutral(card){var st=Number(card.getAttribute('data-stars')||0);return st===3||(!st&&card.getAttribute('data-sentiment')==='Нейтральный');}
+  function isNegative(card){var st=Number(card.getAttribute('data-stars')||0);return (st>0&&st<=2)||(!st&&card.getAttribute('data-sentiment')==='Отрицательный');}
+  function drawBars(id,rows,color){
+    var max=1,i,html='';
+    for(i=0;i<rows.length;i++)if(rows[i].value>max)max=rows[i].value;
+    for(i=0;i<rows.length;i++)html+='<div class="mobile-static-bar"><span>'+esc(rows[i].label)+'</span><b style="width:'+pct(rows[i].value,max)+'%;background:'+color+'"></b><em>'+rows[i].value+'</em></div>';
+    q(id).innerHTML=html||'<div class="mobile-static-empty">Нет данных</div>';
+  }
+  function topThemes(cardsSource,excluded){
+    var skip={},counts={},arr=[],i,j,ts;
+    excluded=excluded||[];
+    for(i=0;i<excluded.length;i++)skip[excluded[i]]=true;
+    for(i=0;i<cardsSource.length;i++){
+      ts=themesOf(cardsSource[i]);
+      for(j=0;j<ts.length;j++)if(!skip[ts[j]])counts[ts[j]]=(counts[ts[j]]||0)+1;
+    }
+    for(var key in counts)arr.push({label:key,value:counts[key]});
+    arr.sort(function(a,b){return b.value-a.value;});
+    return arr.slice(0,8);
+  }
+  function aspectRows(cardsSource,frequencyMode){
+    var skip={},stats={},positiveTotal=0,rows=[],i,j,ts,item;
+    (summary.praiseExcluded||[]).forEach(function(theme){skip[theme]=true;});
+    for(i=0;i<cardsSource.length;i++){
+      if(isPositive(cardsSource[i]))positiveTotal++;
+      ts=themesOf(cardsSource[i]);
+      for(j=0;j<ts.length;j++){
+        if(skip[ts[j]])continue;
+        item=stats[ts[j]]||(stats[ts[j]]={reviews:0,positive:0});
+        item.reviews++;
+        if(isPositive(cardsSource[i]))item.positive++;
+      }
+    }
+    for(var key in stats)rows.push({label:key,value:frequencyMode?pct(stats[key].positive,positiveTotal):pct(stats[key].positive,stats[key].reviews),reviews:stats[key].reviews});
+    rows.sort(function(a,b){return b.reviews-a.reviews;});
+    rows=rows.slice(0,8);
+    rows.sort(function(a,b){return b.value-a.value||b.reviews-a.reviews;});
+    return rows;
+  }
+  function updateKpis(cardsSource,pos,neu,neg){
+    var boxes=[].slice.call(root.querySelectorAll('.mobile-static-kpi')),rated=[],sum=0,i,praise,upset,total=cardsSource.length;
+    for(i=0;i<cardsSource.length;i++){
+      var stars=Number(cardsSource[i].getAttribute('data-stars')||0);
+      if(stars){rated.push(stars);sum+=stars;}
+    }
+    praise=topThemes(cardsSource.filter(isPositive),summary.praiseExcluded)[0]||{label:'нет данных',value:0};
+    upset=topThemes(cardsSource.filter(function(card){return isNegative(card)||isNeutral(card);}),summary.complaintExcluded)[0]||{label:'нет данных',value:0};
+    var values=[
+      [(rated.length? (sum/rated.length).toFixed(1):'—')+' ★',rated.length+' оценок в выборке'],
+      [pct(pos,total)+'%',pos+' из '+total],
+      [pct(neg+neu,total)+'%',(neg+neu)+' отзывов'],
+      [praise.label,praise.value+' упоминаний'],
+      [upset.label,upset.value+' упоминаний']
+    ];
+    boxes.forEach(function(box,index){box.querySelector('.mobile-static-value').textContent=values[index][0];box.querySelector('.mobile-static-hint').textContent=values[index][1];});
+  }
+  function drawCharts(cardsSource){
+    var pos=0,neu=0,neg=0,i,groups,html='',total=cardsSource.length;
+    cardsSource=cardsSource||cards;
+    for(i=0;i<cardsSource.length;i++){
+      if(isPositive(cardsSource[i]))pos++;
+      else if(isNeutral(cardsSource[i]))neu++;
+      else neg++;
+    }
+    updateKpis(cardsSource,pos,neu,neg);
+    groups=[['Позитивные',pos,'#1c9b62'],['Нейтральные',neu,'#c79322'],['Негативные',neg,'#d0473f']];
+    for(i=0;i<groups.length;i++)html+='<div class="mobile-static-bar"><span>'+groups[i][0]+'</span><b style="width:'+pct(groups[i][1],total)+'%;background:'+groups[i][2]+'"></b><em>'+groups[i][1]+'</em></div>';
+    q('mobile-sentiment-chart').innerHTML=html;
+    drawBars('mobile-aspects-chart',aspectRows(cardsSource,aspectFrequencyMode),aspectFrequencyMode?'#141820':'#3b6ef5');
+    var praise=cardsSource.filter(isPositive);
+    var bad=cardsSource.filter(function(card){return isNegative(card)||(includeNeutralComplaints&&isNeutral(card));});
+    drawBars('mobile-praise-chart',topThemes(praise,summary.praiseExcluded),'#1c9b62');
+    drawBars('mobile-complaints-chart',topThemes(bad,summary.complaintExcluded),'#d0473f');
+    drawTimeline(cardsSource);
+  }
+  function drawTimeline(cardsSource){
+    var months={},years={},keys,i,d,k,mx=1,html='',yearSelect=q('mobile-timeline-year');
+    cardsSource=cardsSource||cards;
+    for(i=0;i<cardsSource.length;i++){d=cardsSource[i].getAttribute('data-date')||'';if(d){k=d.slice(0,7);months[k]=(months[k]||0)+1;}}
+    keys=Object.keys(months).sort();
+    for(i=0;i<keys.length;i++)years[keys[i].slice(0,4)]=true;
+    if(!activeYear)activeYear=Object.keys(years).sort().reverse()[0]||'';
+    if(yearSelect&&yearSelect.value!==activeYear)yearSelect.value=activeYear;
+    for(i=0;i<keys.length;i++)if(keys[i].slice(0,4)===activeYear&&months[keys[i]]>mx)mx=months[keys[i]];
+    for(i=1;i<=12;i++){
+      k=activeYear+'-'+String(i).padStart(2,'0');
+      var count=months[k]||0;
+      html+='<button type="button" '+(count?'':'disabled')+' class="'+(k===activeMonth?'active':'')+'" data-month="'+k+'"><em>'+count+'</em><b style="height:'+(count?12+pct(count,mx)*54:2)+'px"></b><span>'+monthNames[i-1]+'</span></button>';
+    }
+    q('mobile-timeline-chart').innerHTML=html;
+  }
+  function normalizeDates(){
+    var from=q('mobile-date-from'),to=q('mobile-date-to'),tmp;
+    if(from.value&&to.value&&from.value>to.value){tmp=from.value;from.value=to.value;to.value=tmp;}
+  }
+  function filtered(){
+    normalizeDates();
+    var text=(q('mobile-search').value||'').toLowerCase(),theme=q('mobile-theme').value,sort=q('mobile-sort').value,levelRange=q('mobile-level').value;
+    var from=q('mobile-date-from').value,to=q('mobile-date-to').value,anySent=Object.keys(selectedSentiments).length>0;
+    var levelParts=levelRange?levelRange.split('-').map(Number):[];
+    var out=cards.filter(function(card){
+      var d=card.getAttribute('data-date')||'',sent=card.getAttribute('data-sentiment')||'',level=Number(card.getAttribute('data-level')||0);
+      return (!text||(card.getAttribute('data-search')||'').indexOf(text)>=0)&&
+        (!theme||themesOf(card).indexOf(theme)>=0)&&
+        (!from||d>=from)&&(!to||d<=to)&&
+        (!levelParts.length||(level>=levelParts[0]&&level<=levelParts[1]))&&
+        (!anySent||selectedSentiments[sent]);
+    });
+    out.sort(function(a,b){
+      if(sort==='date-asc')return (a.getAttribute('data-date')||'').localeCompare(b.getAttribute('data-date')||'');
+      if(sort==='react')return Number(b.getAttribute('data-reactions')||0)-Number(a.getAttribute('data-reactions')||0);
+      if(sort==='len')return Number(b.getAttribute('data-length')||0)-Number(a.getAttribute('data-length')||0);
+      return (b.getAttribute('data-date')||'').localeCompare(a.getAttribute('data-date')||'');
+    });
+    return out;
+  }
+  function syncChips(){
+    var buttons=[].slice.call(q('mobile-sentiment-filter').querySelectorAll('button'));
+    var any=Object.keys(selectedSentiments).length>0;
+    buttons.forEach(function(btn){
+      var val=btn.getAttribute('data-sentiment');
+      btn.className=(!val&&!any)||(val&&selectedSentiments[val])?'active':'';
+    });
+  }
+  function syncFilterState(){
+    var count=0;
+    if(q('mobile-theme').value)count++;
+    if(q('mobile-level').value)count++;
+    if(q('mobile-date-from').value||q('mobile-date-to').value)count++;
+    count+=Object.keys(selectedSentiments).length;
+    q('mobile-filter-count').textContent=count?String(count):'';
+    q('mobile-filter-count').style.display=count?'inline-grid':'none';
+    q('mobile-quick-reset').style.display=count?'grid':'none';
+  }
+  function render(){
+    var out=filtered(),shown=out.slice(0,limit),i;
+    list.innerHTML='';
+    cards.forEach(function(card){card.style.display='';});
+    for(i=0;i<shown.length;i++)list.appendChild(shown[i]);
+    for(i=limit;i<out.length;i++)out[i].style.display='none';
+    q('mobile-count-note').textContent='Показано '+shown.length+' из '+out.length;
+    q('mobile-more').style.display=shown.length<out.length?'block':'none';
+    syncChips();
+    syncFilterState();
+    drawCharts(out);
+  }
+  ['mobile-search','mobile-theme','mobile-level','mobile-sort','mobile-date-from','mobile-date-to'].forEach(function(id){
+    q(id).oninput=function(){if(id!=='mobile-sort')activeMonth='';limit=80;render();};
+  });
+  function resetFilters(){
+    q('mobile-search').value='';q('mobile-theme').value='';q('mobile-level').value='';q('mobile-sort').value='date';q('mobile-date-from').value='';q('mobile-date-to').value='';
+    selectedSentiments={};activeMonth='';limit=80;render();q('mobile-filter-details').open=false;
+  }
+  q('mobile-reset').onclick=resetFilters;
+  q('mobile-quick-reset').onclick=resetFilters;
+  q('mobile-more').onclick=function(){limit+=80;render();};
+  q('mobile-aspect-toggle').onclick=function(){aspectFrequencyMode=!aspectFrequencyMode;this.className=aspectFrequencyMode?'mobile-static-toggle active':'mobile-static-toggle';drawCharts(filtered());};
+  q('mobile-neutral-toggle').onclick=function(){includeNeutralComplaints=!includeNeutralComplaints;this.className=includeNeutralComplaints?'mobile-static-toggle active':'mobile-static-toggle';drawCharts(filtered());};
+  q('mobile-sentiment-filter').onclick=function(event){
+    var btn=event.target.closest?event.target.closest('button'):event.target;
+    if(!btn||btn.tagName!=='BUTTON')return;
+    var val=btn.getAttribute('data-sentiment');
+    if(!val)selectedSentiments={};else if(selectedSentiments[val])delete selectedSentiments[val];else selectedSentiments[val]=true;
+    limit=80;render();
+  };
+  q('mobile-timeline-chart').onclick=function(event){
+    var btn=event.target.closest?event.target.closest('button'):event.target;
+    while(btn&&btn.tagName!=='BUTTON')btn=btn.parentNode;
+    if(!btn)return;
+    var month=btn.getAttribute('data-month'),last=new Date(Number(month.slice(0,4)),Number(month.slice(5,7)),0).getDate();
+    if(activeMonth===month){activeMonth='';q('mobile-date-from').value='';q('mobile-date-to').value='';}
+    else{activeMonth=month;q('mobile-date-from').value=month+'-01';q('mobile-date-to').value=month+'-'+String(last).padStart(2,'0');q('mobile-sort').value='date';}
+    limit=80;render();
+  };
+  q('mobile-timeline-year').onchange=function(){activeYear=this.value;activeMonth='';drawTimeline(filtered());};
+  document.addEventListener('click',function(event){
+    var details=q('mobile-filter-details');
+    if(details.open&&!details.contains(event.target))details.open=false;
+  });
+  render();
+})();
+  </script>
+</section>
+</body>
+</html>
