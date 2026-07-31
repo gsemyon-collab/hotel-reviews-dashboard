@@ -42,7 +42,7 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .pill b{color:var(--ink)}
 .themebtn{cursor:pointer;user-select:none}
 
-.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-bottom:22px}
 .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow);
   display:grid;grid-template-rows:34px 48px minmax(18px,auto);min-width:0}
 .kpi .lab{font-size:11.5px;line-height:1.35;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
@@ -350,7 +350,8 @@ function renderKpis(source){
   const rows=[
     {lab:'Оценка пользователей',val:(userRating===null?'—':userRating.toFixed(1))+'<small> ★</small>',hint:rated.length+' оценок в выборке'},
     {lab:'Позитивные отзывы',val:(total?Math.round(pos/total*100):0)+'<small>%</small>',hint:pos+' из '+total},
-    {lab:'Негативные, нейтральные',val:(total?Math.round((neg+neu)/total*100):0)+'<small>%</small>',hint:(neg+neu)+' отзывов'},
+    {lab:'Негативные отзывы',val:(total?Math.round(neg/total*100):0)+'<small>%</small>',hint:neg+' отзывов'},
+    {lab:'Нейтральные отзывы',val:(total?Math.round(neu/total*100):0)+'<small>%</small>',hint:neu+' отзывов'},
     {lab:'Что чаще хвалят',val:'<span class="kpi-topic">'+praiseTop.t+'</span>',hint:praiseTop.c+' упоминаний'},
     {lab:'Что чаще расстраивает',val:'<span class="kpi-topic">'+upsetTop.t+'</span>',hint:upsetTop.c+' упоминаний'},
   ];
