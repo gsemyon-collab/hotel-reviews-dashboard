@@ -475,7 +475,7 @@ let page=1,PER=8;
 const selectedSentiments=new Set();
 const sents=[['Все',null],['Позитивные отзывы','Положительный'],['Негативные','Отрицательный'],['Нейтральные','Нейтральный']];
 $('#sent-chips').innerHTML=sents
-  .map(([l,v],i)=>`<button class="chip ${i===0?'on':''}" type="button" aria-pressed="${i===0?'true':'false'}" data-s="${v}">${l}</button>`).join('');
+  .map(([l,v],i)=>`<button class="chip ${i===0?'on':''}" type="button" aria-pressed="${i===0?'true':'false'}" data-s="${v}" data-label="${l}">${l}</button>`).join('');
 function syncSentimentChips(){
   document.querySelectorAll('#sent-chips .chip').forEach(button=>{
     const value=button.dataset.s;
@@ -490,7 +490,7 @@ $('#sent-chips').onclick=e=>{const c=e.target.closest('.chip');if(!c)return;
   else selectedSentiments.add(value);
   syncSentimentChips();c.blur();page=1;render();};
 const allThemes=[...new Set(R.flatMap(r=>r.themes))].sort();
-$('#theme-filter').innerHTML+=allThemes.map(t=>`<option value="${t}">${t}</option>`).join('');
+$('#theme-filter').innerHTML+=allThemes.map(t=>`<option value="${t}" data-label="${t}">${t}</option>`).join('');
 ['q','theme-filter','sort'].forEach(id=>$('#'+id).oninput=()=>{page=1;render();});
 const levelChecks=[...document.querySelectorAll('#level-filter input[type="checkbox"]')];
 function syncLevelFilter(){
@@ -541,14 +541,42 @@ $('#reset-filters').onclick=()=>{
   page=1;render();
 };
 
-function getFiltered(){
+function filterReviews(ignore={}){
   const q=$('#q').value.trim().toLowerCase(),tf=$('#theme-filter').value;
   const dateFrom=$('#date-from').value,dateTo=$('#date-to').value;
   const ranges=levelChecks.filter(input=>input.checked).map(input=>[Number(input.dataset.min),Number(input.dataset.max)]);
-  let out=R.filter(r=>(!selectedSentiments.size||selectedSentiments.has(r.sentiment))&&(!tf||r.themes.includes(tf))&&
-    (!dateFrom||(r.date||'')>=dateFrom)&&(!dateTo||(r.date||'')<=dateTo)&&
-    (!ranges.length||(r.level!=null&&ranges.some(([min,max])=>r.level>=min&&r.level<=max)))&&
+  return R.filter(r=>(ignore.sentiment||!selectedSentiments.size||selectedSentiments.has(r.sentiment))&&(ignore.theme||!tf||r.themes.includes(tf))&&
+    (ignore.date||!dateFrom||(r.date||'')>=dateFrom)&&(ignore.date||!dateTo||(r.date||'')<=dateTo)&&
+    (ignore.level||!ranges.length||(r.level!=null&&ranges.some(([min,max])=>r.level>=min&&r.level<=max)))&&
     (!q||r.text.toLowerCase().includes(q)||(r.author||'').toLowerCase().includes(q)));
+}
+function updateAvailableFilters(){
+  const themeCounts={};
+  filterReviews({theme:true}).forEach(r=>(r.themes||[]).forEach(theme=>themeCounts[theme]=(themeCounts[theme]||0)+1));
+  [...$('#theme-filter').options].forEach((option,index)=>{
+    if(index===0)return;
+    const available=(themeCounts[option.value]||0)>0,selected=option.value===$('#theme-filter').value;
+    option.hidden=!available&&!selected;option.disabled=!available&&!selected;
+  });
+
+  const sentimentCounts={};
+  filterReviews({sentiment:true}).forEach(r=>sentimentCounts[r.sentiment]=(sentimentCounts[r.sentiment]||0)+1);
+  document.querySelectorAll('#sent-chips .chip').forEach(button=>{
+    if(button.dataset.s==='null'){button.hidden=false;return;}
+    const available=(sentimentCounts[button.dataset.s]||0)>0,selected=selectedSentiments.has(button.dataset.s);
+    button.hidden=!available&&!selected;button.disabled=!available&&!selected;
+  });
+
+  const levelSource=filterReviews({level:true});
+  levelChecks.forEach(input=>{
+    const min=Number(input.dataset.min),max=Number(input.dataset.max);
+    const available=levelSource.some(r=>r.level!=null&&r.level>=min&&r.level<=max);
+    input.closest('.level-option').hidden=!available&&!input.checked;
+    input.disabled=!available&&!input.checked;
+  });
+}
+function getFiltered(){
+  let out=filterReviews();
   const cmp={
     'date':(a,b)=>(b.date||'').localeCompare(a.date||''),
     'date-asc':(a,b)=>(a.date||'').localeCompare(b.date||''),
@@ -612,6 +640,7 @@ function render(){
   }).join('')||'<div class="count-note">Ничего не найдено.</div>';
   $('#count-note').textContent=`Показано ${shown.length} из ${f.length}`;
   $('#more').style.display=shown.length<f.length?'block':'none';
+  updateAvailableFilters();
   syncGlobalReset();
 }
 $('#more').onclick=()=>{page++;render();};
