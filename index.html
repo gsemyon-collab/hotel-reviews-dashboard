@@ -489,7 +489,8 @@ $('#sent-chips').onclick=e=>{const c=e.target.closest('.chip');if(!c)return;
   else if(selectedSentiments.has(value))selectedSentiments.delete(value);
   else selectedSentiments.add(value);
   syncSentimentChips();c.blur();page=1;render();};
-const allThemes=[...new Set(R.flatMap(r=>r.themes))].sort();
+const hiddenGeneralThemes=new Set(['Негативный опыт','Лояльность и рекомендации','Общее впечатление']);
+const allThemes=[...new Set(R.flatMap(r=>r.themes))].filter(theme=>!hiddenGeneralThemes.has(theme)).sort();
 $('#theme-filter').innerHTML+=allThemes.map(t=>`<option value="${t}" data-label="${t}">${t}</option>`).join('');
 ['q','theme-filter','sort'].forEach(id=>$('#'+id).oninput=()=>{page=1;render();});
 const levelChecks=[...document.querySelectorAll('#level-filter input[type="checkbox"]')];
@@ -553,11 +554,11 @@ function filterReviews(ignore={}){
 function updateAvailableFilters(){
   const themeCounts={};
   filterReviews({theme:true}).forEach(r=>(r.themes||[]).forEach(theme=>themeCounts[theme]=(themeCounts[theme]||0)+1));
-  [...$('#theme-filter').options].forEach((option,index)=>{
-    if(index===0)return;
-    const available=(themeCounts[option.value]||0)>0,selected=option.value===$('#theme-filter').value;
-    option.hidden=!available&&!selected;option.disabled=!available&&!selected;
-  });
+  const themeSelect=$('#theme-filter'),selectedTheme=themeSelect.value;
+  const availableThemes=allThemes.filter(theme=>(themeCounts[theme]||0)>0);
+  const nextTheme=availableThemes.includes(selectedTheme)?selectedTheme:'';
+  themeSelect.innerHTML='<option value="">Все темы</option>'+availableThemes.map(theme=>`<option value="${theme}" data-label="${theme}">${theme}</option>`).join('');
+  themeSelect.value=nextTheme;
 
   const sentimentCounts={};
   filterReviews({sentiment:true}).forEach(r=>sentimentCounts[r.sentiment]=(sentimentCounts[r.sentiment]||0)+1);
@@ -616,6 +617,7 @@ function renderAnalytics(source){
 }
 
 function render(){
+  updateAvailableFilters();
   const f=getFiltered(),shown=f.slice(0,page*PER);
   renderAnalytics(f);
   $('#rlist').innerHTML=shown.map(r=>{
@@ -640,7 +642,6 @@ function render(){
   }).join('')||'<div class="count-note">Ничего не найдено.</div>';
   $('#count-note').textContent=`Показано ${shown.length} из ${f.length}`;
   $('#more').style.display=shown.length<f.length?'block':'none';
-  updateAvailableFilters();
   syncGlobalReset();
 }
 $('#more').onclick=()=>{page++;render();};
