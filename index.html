@@ -54,6 +54,16 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
 .card h3{margin:0 0 2px;font-size:15px;letter-spacing:-.01em}
+.chart-heading{display:flex;align-items:center;gap:7px;margin-bottom:2px}
+.chart-heading h3{margin:0}
+.info-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;
+  flex:0 0 18px;border:1px solid var(--line);border-radius:50%;color:var(--muted);font-size:11px;font-weight:800;
+  cursor:help;outline:none;user-select:none}
+.info-tip::after{content:attr(data-tip);position:absolute;z-index:30;left:50%;bottom:calc(100% + 8px);width:240px;
+  max-width:80vw;
+  padding:9px 11px;border-radius:7px;background:var(--ink);color:var(--panel);font-size:11.5px;font-weight:500;
+  line-height:1.4;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translate(-50%,4px);transition:.15s;pointer-events:none}
+.info-tip:hover::after,.info-tip:focus::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .card .cap{color:var(--muted);font-size:12.5px;margin-bottom:16px}
 .cap-action{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .cap-action .chip{font-family:inherit;padding:6px 10px}
@@ -206,7 +216,7 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
     </div>
 
     <div class="card col-5">
-      <h3>Тональность отзывов</h3>
+      <div class="chart-heading"><h3>Тональность отзывов</h3><span class="info-tip" tabindex="0" data-tip="Отзывы делятся на позитивные, нейтральные и негативные. Без OpenAI используются оценки: 4–5, 3 и 1–2 звезды.">i</span></div>
       <div class="cap">Распределение по звёздам собранных отзывов</div>
       <div class="donut-wrap">
         <svg id="donut" width="170" height="170" viewBox="0 0 170 170"></svg>
@@ -215,37 +225,37 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
     </div>
 
     <div class="card col-7">
-      <h3>Удовлетворённость по аспектам</h3>
+      <div class="chart-heading"><h3>Удовлетворённость по аспектам</h3><span class="info-tip" tabindex="0" data-tip="Для каждой темы считаем долю позитивных отзывов среди всех отзывов, где она упомянута. STDEV.P показывает, насколько различаются их оценки.">i</span></div>
       <div class="cap">Доля позитивных отзывов внутри аспекта · STDEV.P показывает разброс оценок</div>
       <div id="aspects-satisfaction"></div>
     </div>
 
     <div class="card col-6">
-      <h3>Частота упоминаний</h3>
+      <div class="chart-heading"><h3>Частота упоминаний</h3><span class="info-tip" tabindex="0" data-tip="Показывает, в какой доле позитивных отзывов встретилась каждая тема.">i</span></div>
       <div class="cap">Доля отзывов 4–5★ с упоминанием аспекта</div>
       <div id="aspects-frequency"></div>
     </div>
 
     <div class="card col-6">
-      <h3>Что чаще хвалят</h3>
+      <div class="chart-heading"><h3>Что чаще хвалят</h3><span class="info-tip" tabindex="0" data-tip="Считаем упоминания каждой темы только в позитивных отзывах и показываем самые частые.">i</span></div>
       <div class="cap">Темы, которые чаще встречаются в позитивных отзывах</div>
       <div id="themes"></div>
     </div>
 
     <div class="card col-6">
-      <h3>Что чаще расстраивает</h3>
+      <div class="chart-heading"><h3>Что чаще расстраивает</h3><span class="info-tip" tabindex="0" data-tip="Считаем темы в негативных отзывах. Кнопка ниже позволяет дополнительно учитывать нейтральные.">i</span></div>
       <div class="cap cap-action"><span>Темы в отзывах с оценкой 1–2★</span><button class="chip" id="toggle-neutral-complaints" type="button" aria-pressed="false">Учитывать нейтральные</button></div>
       <div id="complaints"></div>
     </div>
 
     <div class="card col-12">
-      <h3>Динамика отзывов по месяцам</h3>
+      <div class="chart-heading"><h3>Динамика отзывов по месяцам</h3><span class="info-tip" tabindex="0" data-tip="Группируем собранные отзывы по месяцу публикации и считаем их количество.">i</span></div>
       <div class="cap">Количество отзывов в выборке по дате публикации</div>
       <div class="timeline" id="timeline"></div>
     </div>
 
     <div class="card col-12">
-      <h3>Оценка в динамике</h3>
+      <div class="chart-heading"><h3>Оценка в динамике</h3><span class="info-tip" tabindex="0" data-tip="Для каждого месяца складываем звёзды отзывов и делим на число отзывов с оценкой.">i</span></div>
       <div class="cap">Средняя оценка отзывов по месяцам по шкале от 1 до 5</div>
       <div class="timeline rating-timeline" id="rating-timeline"></div>
     </div>
@@ -322,7 +332,7 @@ $('#themeToggle').onclick = () => {
 $('#srclink').href = M.source_url;
 $('#p-official').textContent = M.official.rating ? M.official.rating.toFixed(1) + ' ★' : 'нет данных';
 $('#p-total').textContent = M.official.total_reviews.toLocaleString('ru');
-$('#p-sample').textContent = M.official.total_reviews>M.sample_size ? `${M.sample_size.toLocaleString('ru')} из ${M.official.total_reviews.toLocaleString('ru')}` : M.sample_size.toLocaleString('ru');
+$('#p-sample').textContent = M.sample_size.toLocaleString('ru');
 $('#p-method').textContent = M.analysis_method==='openai' ? 'OpenAI' : 'локальная';
 document.querySelectorAll('.js-n').forEach(e=>e.textContent = M.sample_size);
 document.querySelectorAll('.js-tr').forEach(e=>e.textContent = M.truncated_count);
