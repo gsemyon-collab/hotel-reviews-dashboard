@@ -123,6 +123,16 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .driver-item{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:6px;padding:4px 0;font-size:11.5px}
 .driver-index{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;color:#fff;font-size:9px;font-weight:800}
 .driver-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.driver-values{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tornado-axis{display:grid;grid-template-columns:170px 1fr 62px;gap:10px;margin-bottom:5px;color:var(--muted);font-size:10.5px}
+.tornado-axis-track{display:flex;justify-content:space-between;padding:0 5px}.tornado-list{display:flex;flex-direction:column;gap:7px}
+.tornado-row{display:grid;grid-template-columns:170px 1fr 62px;align-items:center;gap:10px;font-size:12px}
+.tornado-label{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tornado-track{height:21px;position:relative;border-radius:6px;background:var(--bg);overflow:hidden}
+.tornado-track::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--muted);opacity:.8}
+.tornado-fill{position:absolute;top:2px;bottom:2px;border-radius:4px}.tornado-fill.positive{left:50%;background:var(--pos)}
+.tornado-fill.negative{right:50%;background:var(--neg)}.tornado-value{font-weight:750;font-variant-numeric:tabular-nums;text-align:right}
+.tornado-value.positive{color:var(--pos)}.tornado-value.negative{color:var(--neg)}
+.tornado-meta{margin-top:11px;color:var(--muted);font-size:11px;text-align:right}
 
 .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .legend{display:flex;flex-direction:column;gap:9px;font-size:13px}
@@ -230,6 +240,7 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
   .bar-row{grid-template-columns:104px 1fr 42px}
   .journey-grid,.lost-grid{grid-template-columns:1fr}.report-tabs{width:100%}.experience-results-head,.lost-toolbar{align-items:stretch;flex-direction:column}
   .driver-summary{grid-template-columns:1fr}.driver-map-wrap{overflow-x:auto}.driver-map-svg{min-width:720px;min-height:0}
+  .tornado-axis,.tornado-row{grid-template-columns:112px 1fr 54px}.tornado-label{font-size:11px}
 }
 </style>
 </head>
@@ -299,6 +310,12 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
       <div class="cap">Связь упоминания аспекта с оценкой · показывает закономерность, но не доказывает причинное влияние</div>
       <div class="driver-map-wrap" id="driver-map"></div>
       <div class="driver-summary" id="driver-summary"></div>
+    </div>
+
+    <div class="card col-12">
+      <div class="chart-heading"><h3>Коэффициенты влияния аспектов</h3><span class="info-tip" tabindex="0" data-tip="Линейная регрессия сравнивает оценки отзывов с упоминанием и без упоминания каждого аспекта, одновременно учитывая остальные аспекты. Результат показывает статистическую связь, а не доказанную причину.">i</span></div>
+      <div class="cap">Торнадо-диаграмма · зелёные коэффициенты связаны с более высокой оценкой, красные — с более низкой</div>
+      <div id="tornado-chart"></div>
     </div>
 
     <div class="card col-6">
@@ -597,6 +614,70 @@ function renderDriverMap(source){
   $('#driver-summary').innerHTML=[1,2,3,4].map(quadrant=>`<section class="driver-quadrant q${quadrant}"><h4>${quadrantNames[quadrant]}</h4><div class="driver-description">${quadrantDescriptions[quadrant]}</div>${aspects.filter(item=>item.quadrant===quadrant).map(item=>`<div class="driver-item"><span class="driver-index" style="background:${colors[quadrant]}">${item.index}</span><span class="driver-name" title="${item.name}">${item.name}</span><span class="driver-values">${item.frequency.toFixed(1)}% · ${item.rating.toFixed(2)} ★</span></div>`).join('')||'<div class="lost-empty">Нет аспектов</div>'}</section>`).join('');
 }
 
+function solveLinearSystem(matrix,vector){
+  const size=vector.length,A=matrix.map((row,index)=>[...row,vector[index]]);
+  for(let column=0;column<size;column++){
+    let pivot=column;
+    for(let row=column+1;row<size;row++)if(Math.abs(A[row][column])>Math.abs(A[pivot][column]))pivot=row;
+    if(Math.abs(A[pivot][column])<1e-10)return null;
+    [A[column],A[pivot]]=[A[pivot],A[column]];
+    for(let row=column+1;row<size;row++){
+      const factor=A[row][column]/A[column][column];
+      for(let cell=column;cell<=size;cell++)A[row][cell]-=factor*A[column][cell];
+    }
+  }
+  const result=Array(size).fill(0);
+  for(let row=size-1;row>=0;row--){
+    let value=A[row][size];
+    for(let column=row+1;column<size;column++)value-=A[row][column]*result[column];
+    result[row]=value/A[row][row];
+  }
+  return result;
+}
+
+function renderTornado(source){
+  const reviews=source.filter(review=>review.stars);
+  const excluded=new Set(['Негативный опыт','Лояльность и рекомендации','Общее впечатление']);
+  const allAspects=[...new Set(reviews.flatMap(review=>review.themes||[]))].filter(theme=>!excluded.has(theme)).sort((a,b)=>a.localeCompare(b,'ru'));
+  const minimumSupport=Math.max(8,Math.ceil(reviews.length*.005));
+  const aspects=allAspects.filter(theme=>{
+    const mentions=reviews.filter(review=>(review.themes||[]).includes(theme)).length;
+    return mentions>=minimumSupport&&reviews.length-mentions>=minimumSupport;
+  });
+  if(reviews.length<30||!aspects.length){
+    $('#tornado-chart').innerHTML='<div class="count-note">Недостаточно данных для устойчивого расчёта.</div>';return;
+  }
+  const width=aspects.length+1,normal=Array.from({length:width},()=>Array(width).fill(0)),target=Array(width).fill(0);
+  const rows=reviews.map(review=>[1,...aspects.map(theme=>(review.themes||[]).includes(theme)?1:0)]);
+  rows.forEach((features,rowIndex)=>{
+    const rating=reviews[rowIndex].stars;
+    for(let left=0;left<width;left++){
+      target[left]+=features[left]*rating;
+      for(let right=0;right<width;right++)normal[left][right]+=features[left]*features[right];
+    }
+  });
+  let coefficients=solveLinearSystem(normal,target);
+  if(!coefficients){
+    const stabilized=normal.map((row,index)=>row.map((value,column)=>value+(index===column&&index>0?1e-8:0)));
+    coefficients=solveLinearSystem(stabilized,target);
+  }
+  if(!coefficients){$('#tornado-chart').innerHTML='<div class="count-note">Не удалось рассчитать коэффициенты для выбранной выборки.</div>';return;}
+  const items=aspects.map((name,index)=>({name,value:coefficients[index+1]})).sort((a,b)=>Math.abs(b.value)-Math.abs(a.value));
+  const maxValue=Math.max(.01,...items.map(item=>Math.abs(item.value)));
+  const mean=reviews.reduce((sum,review)=>sum+review.stars,0)/reviews.length;
+  let residual=0,total=0;
+  rows.forEach((features,index)=>{
+    const prediction=features.reduce((sum,value,column)=>sum+value*coefficients[column],0);
+    residual+=(reviews[index].stars-prediction)**2;total+=(reviews[index].stars-mean)**2;
+  });
+  const rSquared=total?1-residual/total:0;
+  $('#tornado-chart').innerHTML=`<div class="tornado-axis"><span></span><div class="tornado-axis-track"><span>Снижает оценку</span><span>Повышает оценку</span></div><span></span></div>
+    <div class="tornado-list">${items.map(item=>{
+      const positive=item.value>=0,side=positive?'positive':'negative',barWidth=Math.abs(item.value)/maxValue*50;
+      return `<div class="tornado-row"><div class="tornado-label" title="${item.name}">${item.name}</div><div class="tornado-track" title="${item.name}: ${item.value>=0?'+':''}${item.value.toFixed(3)} балла при упоминании"><div class="tornado-fill ${side}" style="width:${barWidth}%"></div></div><div class="tornado-value ${side}">${item.value>=0?'+':''}${item.value.toFixed(2)}</div></div>`;
+    }).join('')}</div><div class="tornado-meta">${reviews.length.toLocaleString('ru')} отзывов · ${aspects.length} аспектов · R² ${Math.max(0,rSquared).toFixed(3)} · минимум ${minimumSupport} упоминаний</div>`;
+}
+
 /* Themes — count + positive share color */
 function renderPraise(source){
   const tStats={},praiseExcluded=new Set(M.theme_filters?.praise_excluded||[]);
@@ -838,6 +919,7 @@ function renderAnalytics(source){
   renderSentiment(source);
   renderAspects(source);
   renderDriverMap(source);
+  renderTornado(source);
   renderPraise(source);
   renderComplaints(source);
 }
