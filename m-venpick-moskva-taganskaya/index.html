@@ -608,8 +608,8 @@ function renderDriverMap(source){
   const quadrantDescriptions={
     1:'Часто хвалят.',
     2:'Редко упоминают, но оценка высокая.',
-    3:'Мало влияют на общую оценку.',
-    4:'Часто упоминают, оценка низкая — обязательно к исправлению.'
+    3:'Частота упоминания и оценка ниже среднего.',
+    4:'Часто упоминают, оценка ниже среднего — обязательно к исправлению.'
   };
   $('#driver-summary').innerHTML=[1,2,3,4].map(quadrant=>`<section class="driver-quadrant q${quadrant}"><h4>${quadrantNames[quadrant]}</h4><div class="driver-description">${quadrantDescriptions[quadrant]}</div>${aspects.filter(item=>item.quadrant===quadrant).map(item=>`<div class="driver-item"><span class="driver-index" style="background:${colors[quadrant]}">${item.index}</span><span class="driver-name" title="${item.name}">${item.name}</span><span class="driver-values">${item.frequency.toFixed(1)}% · ${item.rating.toFixed(2)} ★</span></div>`).join('')||'<div class="lost-empty">Нет аспектов</div>'}</section>`).join('');
 }
