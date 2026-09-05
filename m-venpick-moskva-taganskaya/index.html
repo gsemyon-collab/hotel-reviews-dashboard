@@ -54,6 +54,8 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .journey-card h3,.lost-card h3{margin:0;font-size:15px}
 .journey-stage-button{border:0;background:transparent;color:var(--ink);font:700 15px/1.3 inherit;padding:0;cursor:pointer;text-align:left}
 .journey-count{color:var(--muted);font-size:12px;margin:3px 0 11px}
+.journey-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:3px 0 11px;color:var(--muted);font-size:12px}
+.journey-rating{color:#b77900;font-weight:750;white-space:nowrap}
 .touch-list{display:flex;flex-direction:column;gap:6px}
 .touch-button,.lost-theme-button,.lost-issue-button,.all-reviews-button{border:1px solid var(--line);border-radius:6px;background:var(--bg);
   color:var(--ink);font:500 12px/1.35 inherit;padding:7px 9px;cursor:pointer;text-align:left;display:flex;justify-content:space-between;gap:8px}
@@ -771,6 +773,7 @@ function journeyReviews(stage,touchpoint=''){
 function renderJourney(){
   $('#journey-grid').innerHTML=journeyStages.map(stage=>{
     const reviews=journeyReviews(stage),touchpoints={};
+    const rated=reviews.filter(review=>review.stars),average= rated.length ? rated.reduce((sum,review)=>sum+review.stars,0)/rated.length : null;
     reviews.forEach(review=>(review.journey||[]).filter(item=>item.stage===stage).forEach(item=>{
       touchpoints[item.touchpoint]=(touchpoints[item.touchpoint]||0)+1;
     }));
@@ -778,7 +781,7 @@ function renderJourney(){
     const preview=reviews[0]?.text||'В собранных отзывах этот этап не описан.';
     return `<article class="journey-card ${journeyStage===stage?'active':''}" data-stage="${stage}">
       <h3><button class="journey-stage-button" type="button" data-stage="${stage}">${stage}</button></h3>
-      <div class="journey-count">${reviews.length} отзывов</div>
+      <div class="journey-meta"><span>${reviews.length} отзывов</span><span class="journey-rating" title="Средняя оценка по ${rated.length} отзывам со звёздами">${average===null?'нет оценки':average.toFixed(1)+' ★'}</span></div>
       <div class="touch-list">${ordered.map(([touchpoint,count])=>`<button class="touch-button ${journeyStage===stage&&journeyTouchpoint===touchpoint?'active':''}" type="button" data-stage="${stage}" data-touchpoint="${touchpoint}"><span>${touchpoint}</span><b>${count}</b></button>`).join('')}</div>
       <div class="journey-preview">${esc(preview)}</div>
     </article>`;
