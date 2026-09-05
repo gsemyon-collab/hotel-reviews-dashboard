@@ -119,6 +119,7 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .driver-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
 .driver-quadrant{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg)}
 .driver-quadrant h4{margin:0 0 7px;font-size:12px}.driver-quadrant.q4{border-color:rgba(216,68,60,.55)}
+.driver-description{min-height:32px;margin:-2px 0 8px;color:var(--muted);font-size:10.5px;line-height:1.4}
 .driver-item{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:6px;padding:4px 0;font-size:11.5px}
 .driver-index{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;color:#fff;font-size:9px;font-weight:800}
 .driver-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.driver-values{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -587,7 +588,13 @@ function renderDriverMap(source){
     ${points}
   </svg>`;
   const quadrantNames={1:'1 · Главные драйверы',2:'2 · Скрытые сильные стороны',3:'3 · Локальные уязвимости',4:'4 · Главные негативные факторы'};
-  $('#driver-summary').innerHTML=[1,2,3,4].map(quadrant=>`<section class="driver-quadrant q${quadrant}"><h4>${quadrantNames[quadrant]}</h4>${aspects.filter(item=>item.quadrant===quadrant).map(item=>`<div class="driver-item"><span class="driver-index" style="background:${colors[quadrant]}">${item.index}</span><span class="driver-name" title="${item.name}">${item.name}</span><span class="driver-values">${item.frequency.toFixed(1)}% · ${item.rating.toFixed(2)} ★</span></div>`).join('')||'<div class="lost-empty">Нет аспектов</div>'}</section>`).join('');
+  const quadrantDescriptions={
+    1:'Часто хвалят.',
+    2:'Редко упоминают, но оценка высокая.',
+    3:'Мало влияют на общую оценку.',
+    4:'Часто упоминают, оценка низкая — обязательно к исправлению.'
+  };
+  $('#driver-summary').innerHTML=[1,2,3,4].map(quadrant=>`<section class="driver-quadrant q${quadrant}"><h4>${quadrantNames[quadrant]}</h4><div class="driver-description">${quadrantDescriptions[quadrant]}</div>${aspects.filter(item=>item.quadrant===quadrant).map(item=>`<div class="driver-item"><span class="driver-index" style="background:${colors[quadrant]}">${item.index}</span><span class="driver-name" title="${item.name}">${item.name}</span><span class="driver-values">${item.frequency.toFixed(1)}% · ${item.rating.toFixed(2)} ★</span></div>`).join('')||'<div class="lost-empty">Нет аспектов</div>'}</section>`).join('');
 }
 
 /* Themes — count + positive share color */
