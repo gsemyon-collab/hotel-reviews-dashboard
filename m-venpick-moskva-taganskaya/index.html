@@ -76,11 +76,11 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .persona-theory{max-width:430px;padding-left:14px;border-left:3px solid var(--accent);color:var(--muted);font-size:12px;line-height:1.55}
 .persona-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .persona-card{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:17px;min-width:0}
-.persona-card h2{margin:0;font-size:17px;line-height:1.25}.persona-kicker{margin-bottom:7px;color:var(--accent);font-size:10.5px;font-weight:800;text-transform:uppercase}
-.persona-statement{min-height:58px;margin:9px 0 13px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.persona-card h2{min-height:43px;margin:0;font-size:17px;line-height:1.25}.persona-kicker{min-height:26px;margin-bottom:7px;color:var(--accent);font-size:10.5px;font-weight:800;line-height:1.25;text-transform:uppercase}
+.persona-statement{min-height:94px;margin:9px 0 13px;color:var(--muted);font-size:12.5px;line-height:1.5}
 .persona-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:15px}
 .persona-metric{padding:8px;background:var(--bg);border:1px solid var(--line);border-radius:6px}.persona-metric b{display:block;font-size:15px}.persona-metric span{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.2}
-.persona-block{padding-top:12px;border-top:1px solid var(--line)}.persona-block+.persona-block{margin-top:12px}
+.persona-block{min-height:116px;padding-top:12px;border-top:1px solid var(--line)}.persona-block+.persona-block{margin-top:12px}
 .persona-block h3{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px;font-size:12px}.persona-block h3 span{color:var(--muted);font-size:9.5px;font-weight:500}
 .persona-list{display:flex;flex-direction:column;gap:6px}.persona-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;font-size:11.5px;line-height:1.35}.persona-item b{font-variant-numeric:tabular-nums}.persona-empty{color:var(--muted);font-size:11.5px;line-height:1.4}
 .experience-results{margin-top:18px}
@@ -249,7 +249,7 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
   .col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}
   .journey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lost-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .driver-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .persona-grid{grid-template-columns:1fr}.persona-statement{min-height:0}
+  .persona-grid{grid-template-columns:1fr}.persona-kicker,.persona-card h2,.persona-statement,.persona-block{min-height:0}
 }
 @media(max-width:560px){
   .kpis{grid-template-columns:repeat(2,1fr)}
