@@ -902,10 +902,11 @@ function csvCell(value){
 }
 function exportFilteredCsv(){
   const rows=getFiltered();
-  const columns=['organization','source_url','id','author','level','date','year','month','stars','sentiment','sentiment_score','reactions','themes','journey','lost_experiences','staff','truncated','length','words','text','answer'];
+  const columns=['organization','source_url','id','author','level','date','year','month','stars','sentiment','sentiment_score','TRIP_PURPOSE','SITUATION','COMPANION','reactions','themes','journey','lost_experiences','staff','truncated','length','words','text','answer'];
   const lines=[columns.map(csvCell).join(';')];
   rows.forEach(review=>lines.push(columns.map(column=>csvCell(
     column==='organization'?M.organization:column==='source_url'?M.source_url:
+    ['TRIP_PURPOSE','SITUATION','COMPANION'].includes(column)?(review.stay_context?.[column]||''):
     column==='journey'?(review.journey||[]).map(item=>`${item.stage}: ${item.touchpoint}`):
     column==='lost_experiences'?(review.lost_experiences||[]).map(item=>`${item.theme}: ${item.issue}`):review[column]
   )).join(';')));
