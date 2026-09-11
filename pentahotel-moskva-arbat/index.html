@@ -86,7 +86,9 @@ h1{font-size:24px;line-height:1.2;margin:0;letter-spacing:0}
 .experience-results{margin-top:18px}
 .experience-results-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}
 .experience-results h2{margin:0;font-size:18px}.experience-results .cap{margin:2px 0 0}
-.lost-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.tab-filter-bar,.lost-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.tab-filter-bar .section-lead,.lost-toolbar .section-lead{flex:1;margin:0}
+.tab-filter-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
 .lost-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .lost-card{padding:0;overflow:hidden}.lost-theme-button{width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;
   font-size:13px;font-weight:700;padding:12px 14px}
@@ -273,7 +275,8 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
   .kpis{grid-template-columns:repeat(2,1fr)}
   header.top{align-items:flex-start}
   .bar-row{grid-template-columns:104px 1fr 42px}
-  .journey-grid,.lost-grid{grid-template-columns:1fr}.report-tabs{width:100%}.experience-results-head,.lost-toolbar{align-items:stretch;flex-direction:column}
+  .journey-grid,.lost-grid{grid-template-columns:1fr}.report-tabs{width:100%}.experience-results-head,.tab-filter-bar,.lost-toolbar,.tab-filter-actions{align-items:stretch;flex-direction:column}
+  .tab-filter-bar .date-range,.lost-toolbar .date-range{width:100%}.tab-filter-bar .date-range label,.lost-toolbar .date-range label{flex:1;min-width:0}.tab-filter-bar .date-range input,.lost-toolbar .date-range input{width:100%;min-width:0}
   .driver-summary{grid-template-columns:1fr}.driver-map-wrap{overflow-x:auto}.driver-map-svg{min-width:720px;min-height:0}
   .tornado-axis,.tornado-row{grid-template-columns:112px 1fr 54px}.tornado-label{font-size:11px}
   .persona-intro{grid-template-columns:1fr}.persona-theory{max-width:none}
@@ -431,7 +434,14 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
   </section>
 
   <section class="tab-panel" id="tab-journey" hidden>
-    <p class="section-lead">Отзывы распределены по этапам пути гостя только при наличии соответствующей информации в тексте.</p>
+    <div class="tab-filter-bar">
+      <p class="section-lead">Отзывы распределены по этапам пути гостя только при наличии соответствующей информации в тексте.</p>
+      <div class="date-range" id="journey-date-range">
+        <label>С <input id="journey-date-from" type="date" aria-label="Карта пути клиента: дата с"></label>
+        <label>По <input id="journey-date-to" type="date" aria-label="Карта пути клиента: дата по"></label>
+        <button class="date-reset" id="journey-date-reset" type="button" aria-label="Сбросить период карты пути клиента" title="Сбросить даты" hidden>×</button>
+      </div>
+    </div>
     <div class="journey-grid" id="journey-grid"></div>
     <div class="card experience-results">
       <div class="experience-results-head"><div><h2 id="journey-result-title">Отзывы по этапу</h2><div class="cap" id="journey-result-count"></div></div></div>
@@ -451,7 +461,14 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
   <section class="tab-panel" id="tab-lost" hidden>
     <div class="lost-toolbar">
       <p class="section-lead">Показаны конкретные проблемы только из негативных отзывов с оценкой 1–2★.</p>
-      <button class="all-reviews-button" id="lost-all" type="button"><span>Все боли</span><b></b></button>
+      <div class="tab-filter-actions">
+        <div class="date-range" id="lost-date-range">
+          <label>С <input id="lost-date-from" type="date" aria-label="Потерянный опыт: дата с"></label>
+          <label>По <input id="lost-date-to" type="date" aria-label="Потерянный опыт: дата по"></label>
+          <button class="date-reset" id="lost-date-reset" type="button" aria-label="Сбросить период потерянного опыта" title="Сбросить даты" hidden>×</button>
+        </div>
+        <button class="all-reviews-button" id="lost-all" type="button"><span>Все боли</span><b></b></button>
+      </div>
     </div>
     <div class="lost-grid" id="lost-grid"></div>
     <div class="card experience-results">
@@ -1036,15 +1053,38 @@ function render(){
 }
 $('#more').onclick=()=>{page++;render();};
 
+const reportDates=R.map(review=>review.date).filter(Boolean).sort();
+const reportMinDate=reportDates[0]||'',reportMaxDate=reportDates[reportDates.length-1]||'';
+function periodReviews(prefix){
+  const from=$(`#${prefix}-date-from`).value,to=$(`#${prefix}-date-to`).value;
+  return R.filter(review=>(!from||(review.date||'')>=from)&&(!to||(review.date||'')<=to));
+}
+function syncPeriodReset(prefix){
+  $(`#${prefix}-date-reset`).hidden=!($(`#${prefix}-date-from`).value||$(`#${prefix}-date-to`).value);
+}
+function normalizePeriodRange(prefix){
+  const from=$(`#${prefix}-date-from`),to=$(`#${prefix}-date-to`);
+  if(from.value&&to.value&&from.value>to.value){const value=from.value;from.value=to.value;to.value=value;}
+}
+function setupPeriodFilter(prefix,onChange){
+  const from=$(`#${prefix}-date-from`),to=$(`#${prefix}-date-to`),reset=$(`#${prefix}-date-reset`);
+  [from,to].forEach(input=>{input.min=reportMinDate;input.max=reportMaxDate;input.addEventListener('change',()=>{
+    normalizePeriodRange(prefix);syncPeriodReset(prefix);onChange();
+  });});
+  reset.onclick=()=>{from.value='';to.value='';syncPeriodReset(prefix);onChange();};
+  syncPeriodReset(prefix);
+}
+
 const journeyStages=['До поездки','Пребывание','Проживание','После поездки'];
 let journeyStage='До поездки',journeyTouchpoint='',journeyLimit=8;
-function journeyReviews(stage,touchpoint=''){
-  return R.filter(review=>(review.journey||[]).some(item=>item.stage===stage&&(!touchpoint||item.touchpoint===touchpoint)));
+function journeyReviews(stage,touchpoint='',source=periodReviews('journey')){
+  return source.filter(review=>(review.journey||[]).some(item=>item.stage===stage&&(!touchpoint||item.touchpoint===touchpoint)));
 }
 function renderJourney(){
+  const source=periodReviews('journey');
   const externalTouchpoints=new Set(['Расположение','Достопримечательности рядом','Транспорт рядом','Места рядом']);
   $('#journey-grid').innerHTML=journeyStages.map(stage=>{
-    const reviews=journeyReviews(stage),touchpoints={};
+    const reviews=journeyReviews(stage,'',source),touchpoints={};
     const rated=reviews.filter(review=>review.stars),average= rated.length ? rated.reduce((sum,review)=>sum+review.stars,0)/rated.length : null;
     reviews.forEach(review=>(review.journey||[]).filter(item=>item.stage===stage).forEach(item=>{
       const stat=touchpoints[item.touchpoint]||(touchpoints[item.touchpoint]={count:0,sum:0,rated:0});
@@ -1066,7 +1106,7 @@ function renderJourney(){
       <div class="journey-preview">${esc(preview)}</div>
     </article>`;
   }).join('');
-  const reviews=journeyReviews(journeyStage,journeyTouchpoint);
+  const reviews=journeyReviews(journeyStage,journeyTouchpoint,source);
   $('#journey-result-title').textContent=journeyTouchpoint||journeyStage;
   $('#journey-result-count').textContent=`${reviews.length} отзывов с информацией об этом этапе`;
   $('#journey-rlist').innerHTML=reviews.slice(0,journeyLimit).map(reviewCard).join('')||'<div class="count-note">Подходящих отзывов не найдено.</div>';
@@ -1077,30 +1117,35 @@ $('#journey-grid').onclick=event=>{
   journeyStage=button.dataset.stage;journeyTouchpoint=button.dataset.touchpoint||'';journeyLimit=8;renderJourney();
 };
 $('#journey-more').onclick=()=>{journeyLimit+=8;renderJourney();};
+setupPeriodFilter('journey',()=>{journeyLimit=8;renderJourney();});
 
-const lostThemes=[...new Set(R.flatMap(review=>(review.lost_experiences||[]).map(item=>item.theme)))];
-const lostThemeStats=lostThemes.map(theme=>{
-  const reviews=R.filter(review=>(review.lost_experiences||[]).some(item=>item.theme===theme));
-  const issues={};
-  reviews.forEach(review=>(review.lost_experiences||[]).filter(item=>item.theme===theme).forEach(item=>{
-    issues[item.issue]=(issues[item.issue]||0)+1;
-  }));
-  return {theme,reviews,issues:Object.entries(issues).sort((a,b)=>b[1]-a[1])};
-}).sort((a,b)=>b.reviews.length-a.reviews.length||a.theme.localeCompare(b.theme,'ru'));
-const firstLostTheme=lostThemeStats.find(item=>item.reviews.length)?.theme||'';
-let lostTheme=firstLostTheme,lostIssue='',lostShowAll=false,lostLimit=8;
-function lostReviews(){
-  if(lostShowAll)return R.filter(review=>(review.lost_experiences||[]).length);
-  return R.filter(review=>(review.lost_experiences||[]).some(item=>item.theme===lostTheme&&(!lostIssue||item.issue===lostIssue)));
+function buildLostThemeStats(source){
+  const themes=[...new Set(source.flatMap(review=>(review.lost_experiences||[]).map(item=>item.theme)))];
+  return themes.map(theme=>{
+    const reviews=source.filter(review=>(review.lost_experiences||[]).some(item=>item.theme===theme)),issues={};
+    reviews.forEach(review=>(review.lost_experiences||[]).filter(item=>item.theme===theme).forEach(item=>{issues[item.issue]=(issues[item.issue]||0)+1;}));
+    return {theme,reviews,issues:Object.entries(issues).sort((a,b)=>b[1]-a[1])};
+  }).sort((a,b)=>b.reviews.length-a.reviews.length||a.theme.localeCompare(b.theme,'ru'));
+}
+let lostTheme='',lostIssue='',lostShowAll=false,lostLimit=8;
+function lostReviews(source){
+  if(lostShowAll)return source.filter(review=>(review.lost_experiences||[]).length);
+  return source.filter(review=>(review.lost_experiences||[]).some(item=>item.theme===lostTheme&&(!lostIssue||item.issue===lostIssue)));
 }
 function renderLost(){
-  const allPainReviews=R.filter(review=>(review.lost_experiences||[]).length);
+  const source=periodReviews('lost'),lostThemeStats=buildLostThemeStats(source);
+  if(!lostShowAll){
+    const activeTheme=lostThemeStats.find(item=>item.theme===lostTheme);
+    if(!activeTheme){lostTheme=lostThemeStats[0]?.theme||'';lostIssue='';}
+    else if(lostIssue&&!activeTheme.issues.some(([issue])=>issue===lostIssue))lostIssue='';
+  }
+  const allPainReviews=source.filter(review=>(review.lost_experiences||[]).length);
   $('#lost-all b').textContent=allPainReviews.length;
   $('#lost-grid').innerHTML=lostThemeStats.map(item=>`<article class="lost-card ${!lostShowAll&&lostTheme===item.theme?'active':''}">
     <button class="lost-theme-button ${!lostShowAll&&lostTheme===item.theme&&!lostIssue?'active':''}" type="button" data-theme="${item.theme}" ${item.reviews.length?'':'disabled'}><span>${item.theme}</span><b>${item.reviews.length||'—'}</b></button>
     ${item.issues.length?`<div class="lost-issues">${item.issues.map(([issue,count])=>`<button class="lost-issue-button ${!lostShowAll&&lostTheme===item.theme&&lostIssue===issue?'active':''}" type="button" data-theme="${item.theme}" data-issue="${issue}"><span>${issue}</span><b>${count}</b></button>`).join('')}</div>`:'<div class="lost-empty">Повторяющиеся конкретные проблемы не найдены</div>'}
-  </article>`).join('');
-  const reviews=lostReviews();
+  </article>`).join('')||'<div class="count-note">В выбранном периоде негативных отзывов с конкретными болями нет.</div>';
+  const reviews=lostReviews(source);
   $('#lost-result-title').textContent=lostShowAll?'Все негативные отзывы с болями':(lostIssue||lostTheme||'Потерянный опыт');
   $('#lost-result-count').textContent=lostShowAll?`${reviews.length} негативных отзывов с конкретными проблемами`:`${reviews.length} негативных отзывов с этой проблемой`;
   $('#lost-rlist').innerHTML=reviews.slice(0,lostLimit).map(reviewCard).join('')||'<div class="count-note">Подходящих отзывов не найдено.</div>';
@@ -1170,6 +1215,7 @@ $('#lost-grid').onclick=event=>{
 };
 $('#lost-all').onclick=()=>{lostShowAll=true;lostTheme='';lostIssue='';lostLimit=8;renderLost();};
 $('#lost-more').onclick=()=>{lostLimit+=8;renderLost();};
+setupPeriodFilter('lost',()=>{lostLimit=8;renderLost();});
 
 document.querySelector('.report-tabs').onclick=event=>{
   const button=event.target.closest('.report-tab');if(!button)return;
