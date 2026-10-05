@@ -259,7 +259,9 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padd
   color:var(--muted);font:18px/1 inherit;cursor:pointer}
 .level-clear:hover{background:var(--panel);color:var(--ink)}
 .level-clear[hidden]{display:none}
-.date-range{display:flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:4px 6px 4px 10px}
+.date-range{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:4px 6px 4px 10px}
+.date-error{flex-basis:100%;max-width:320px;white-space:normal;font-size:11px;line-height:1.4;color:var(--neg);padding:0 0 4px}
+.date-error[hidden]{display:none}.date-invalid{border-color:var(--neg)}
 .date-range label{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:12px;white-space:nowrap}
 .date-range input{width:128px;border:0;background:transparent;color:var(--ink);font:inherit;font-size:12.5px;padding:5px 2px}
 .date-range input:focus{outline:none}
@@ -741,6 +743,65 @@ $('financial-content').innerHTML=`<section class="financial-section"><h2>Фин�
   root.ReportPanels={renderRegression,renderCorrelations,renderFinance,renderLoyalty,loyaltyMarkup};
 })(globalThis);
 </script>
+<script>(function(root){
+  'use strict';
+  function attach({from,to,reset,onApply,onDraftChange=()=>{}}){
+    const container=from.closest('.date-range');
+    const inputs=[from,to];
+    let committed={from:from.value,to:to.value};
+    let manual=false;
+    const error=document.createElement('span');
+    error.id=from.id+'-error';error.className='date-error';error.setAttribute('role','status');error.setAttribute('aria-live','polite');error.hidden=true;
+    container.append(error);
+    inputs.forEach(input=>{input.min='1900-01-01';input.max='9999-12-31';input.setAttribute('aria-describedby',error.id);});
+    function feedback(message=''){
+      error.textContent=message;error.hidden=!message;
+      container.classList.toggle('date-invalid',Boolean(message));
+      inputs.forEach(input=>{if(message)input.setAttribute('aria-invalid','true');else input.removeAttribute('aria-invalid');});
+    }
+    function hasDraft(){return inputs.some(input=>input.value||input.validity.badInput)||Boolean(committed.from||committed.to);}
+    function sync(){reset.hidden=!hasDraft();onDraftChange();}
+    function validDate(input){
+      if(input.validity.badInput)return false;
+      if(!input.value)return true;
+      const match=/^(\d{4})-(\d{2})-(\d{2})$/.exec(input.value);
+      if(!match||Number(match[1])<1900)return false;
+      const date=new Date(input.value+'T00:00:00Z');
+      return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===input.value;
+    }
+    function apply(){
+      if(!inputs.every(validDate)){feedback('Укажите полную существующую дату. Год: от 1900 до 9999.');sync();return false;}
+      if(from.value&&to.value&&from.value>to.value){feedback('Дата «С» не может быть позже даты «По».');sync();return false;}
+      const changed=committed.from!==from.value||committed.to!==to.value;
+      committed={from:from.value,to:to.value};manual=false;feedback();sync();
+      if(changed)onApply();
+      return true;
+    }
+    function set(start,end){
+      from.value=start;to.value=end;committed={from:start,to:end};manual=false;feedback();sync();
+    }
+    inputs.forEach(input=>{
+      input.addEventListener('pointerdown',()=>{manual=false;});
+      input.addEventListener('keydown',event=>{
+        if(event.key==='Enter'){event.preventDefault();apply();return;}
+        if(event.key==='Escape'){event.preventDefault();set(committed.from,committed.to);return;}
+        if(event.key.length===1||['Backspace','Delete','ArrowUp','ArrowDown'].includes(event.key))manual=true;
+      });
+      input.addEventListener('paste',()=>{manual=true;});
+      input.addEventListener('input',()=>{feedback();sync();});
+      input.addEventListener('change',()=>{if(!manual)apply();});
+      input.addEventListener('blur',event=>{
+        if(event.relatedTarget&&container.contains(event.relatedTarget))return;
+        apply();
+      });
+    });
+    reset.onclick=()=>{set('','');onApply();};
+    reset.hidden=!hasDraft();
+    return {get:()=>({...committed}),set,hasDraft};
+  }
+  root.ReportDateRange={attach};
+})(globalThis);
+</script>
 <script>
 function loadEmbeddedReviews(){
   if (window.REVIEWS) return window.REVIEWS;
@@ -1061,12 +1122,11 @@ let fMonth=null;
       <div class="tl">${mru[+m]} ${y.slice(2)}</div></button>`;}).join('');
   $('#timeline').onclick=e=>{const bar=e.target.closest('.tbar');if(!bar)return;
     if(fMonth===bar.dataset.month){
-      fMonth=null;$('#date-from').value='';$('#date-to').value='';
+      fMonth=null;overviewDates.set('','');
     }else{
       fMonth=bar.dataset.month;
       const [year,month]=fMonth.split('-').map(Number);
-      $('#date-from').value=`${year}-${String(month).padStart(2,'0')}-01`;
-      $('#date-to').value=`${year}-${String(month).padStart(2,'0')}-${String(new Date(year,month,0).getDate()).padStart(2,'0')}`;
+      overviewDates.set(`${year}-${String(month).padStart(2,'0')}-01`,`${year}-${String(month).padStart(2,'0')}-${String(new Date(year,month,0).getDate()).padStart(2,'0')}`);
     }
     $('#sort').value='date';page=1;syncDateFilter();render();
   };
@@ -1128,38 +1188,29 @@ function syncDateFilter(){
     const active=bar.dataset.month===fMonth;
     bar.classList.toggle('on',active);bar.setAttribute('aria-pressed',String(active));
   });
-  $('#date-reset').hidden=!($('#date-from').value||$('#date-to').value);
+  $('#date-reset').hidden=!overviewDates.hasDraft();
 }
-function normalizeDateRange(){
-  const from=$('#date-from'),to=$('#date-to');
-  if(from.value&&to.value&&from.value>to.value){
-    const value=from.value;from.value=to.value;to.value=value;
-  }
-}
-function handleDateChange(){normalizeDateRange();fMonth=null;page=1;syncDateFilter();render();}
-['date-from','date-to'].forEach(id=>{
-  $('#'+id).addEventListener('input',handleDateChange);
-  $('#'+id).addEventListener('change',handleDateChange);
+const overviewDates=ReportDateRange.attach({
+  from:$('#date-from'),to:$('#date-to'),reset:$('#date-reset'),
+  onApply:()=>{fMonth=null;page=1;syncDateFilter();render();},
+  onDraftChange:()=>syncGlobalReset()
 });
-$('#date-reset').onclick=()=>{
-  $('#date-from').value='';$('#date-to').value='';fMonth=null;page=1;syncDateFilter();render();
-};
 function syncGlobalReset(){
   const active=$('#q').value.trim()||$('#theme-filter').value||$('#sort').value!=='date'||selectedSentiments.size||
-    levelChecks.some(input=>input.checked)||$('#date-from').value||$('#date-to').value;
+    levelChecks.some(input=>input.checked)||overviewDates.hasDraft();
   $('#reset-filters').disabled=!active;
 }
 $('#reset-filters').onclick=()=>{
   $('#q').value='';$('#theme-filter').value='';$('#sort').value='date';
   selectedSentiments.clear();syncSentimentChips();
   levelChecks.forEach(input=>input.checked=false);$('#level-filter').open=false;syncLevelFilter();
-  $('#date-from').value='';$('#date-to').value='';fMonth=null;syncDateFilter();
+  overviewDates.set('','');fMonth=null;syncDateFilter();
   page=1;render();
 };
 
 function filterReviews(ignore={}){
   const q=$('#q').value.trim().toLowerCase(),tf=$('#theme-filter').value;
-  const dateFrom=$('#date-from').value,dateTo=$('#date-to').value;
+  const {from:dateFrom,to:dateTo}=overviewDates.get();
   const ranges=levelChecks.filter(input=>input.checked).map(input=>[Number(input.dataset.min),Number(input.dataset.max)]);
   return R.filter(r=>(ignore.sentiment||!selectedSentiments.size||selectedSentiments.has(r.sentiment))&&(ignore.theme||!tf||r.themes.includes(tf))&&
     (ignore.date||!dateFrom||(r.date||'')>=dateFrom)&&(ignore.date||!dateTo||(r.date||'')<=dateTo)&&
@@ -1276,26 +1327,13 @@ function render(){
 }
 $('#more').onclick=()=>{page++;render();};
 
-const reportDates=R.map(review=>review.date).filter(Boolean).sort();
-const reportMinDate=reportDates[0]||'',reportMaxDate=reportDates[reportDates.length-1]||'';
+const periodDates={};
 function periodReviews(prefix){
-  const from=$(`#${prefix}-date-from`).value,to=$(`#${prefix}-date-to`).value;
+  const {from,to}=periodDates[prefix].get();
   return R.filter(review=>(!from||(review.date||'')>=from)&&(!to||(review.date||'')<=to));
 }
-function syncPeriodReset(prefix){
-  $(`#${prefix}-date-reset`).hidden=!($(`#${prefix}-date-from`).value||$(`#${prefix}-date-to`).value);
-}
-function normalizePeriodRange(prefix){
-  const from=$(`#${prefix}-date-from`),to=$(`#${prefix}-date-to`);
-  if(from.value&&to.value&&from.value>to.value){const value=from.value;from.value=to.value;to.value=value;}
-}
 function setupPeriodFilter(prefix,onChange){
-  const from=$(`#${prefix}-date-from`),to=$(`#${prefix}-date-to`),reset=$(`#${prefix}-date-reset`);
-  [from,to].forEach(input=>{input.min=reportMinDate;input.max=reportMaxDate;input.addEventListener('change',()=>{
-    normalizePeriodRange(prefix);syncPeriodReset(prefix);onChange();
-  });});
-  reset.onclick=()=>{from.value='';to.value='';syncPeriodReset(prefix);onChange();};
-  syncPeriodReset(prefix);
+  periodDates[prefix]=ReportDateRange.attach({from:$(`#${prefix}-date-from`),to:$(`#${prefix}-date-to`),reset:$(`#${prefix}-date-reset`),onApply:onChange});
 }
 
 const journeyStages=['До поездки','Пребывание','Проживание','После поездки'];
