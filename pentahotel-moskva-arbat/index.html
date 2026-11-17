@@ -832,14 +832,54 @@ $('financial-content').innerHTML=`<section class="financial-section"><h2>Фин�
   root.ReportDateRange={attach};
 })(globalThis);
 </script>
+<script>(function(root) {
+'use strict';
+
+function ratingValue(value) {
+  if (!['number', 'string'].includes(typeof value)) return null;
+  const rating = Number(value);
+  return Number.isInteger(rating) && rating >= 1 && rating <= 5 ? rating : null;
+}
+
+function ratedReviews(reviews) {
+  return (reviews || []).filter(review => review && ratingValue(review.stars) !== null)
+    .map(review => ({ ...review, stars: ratingValue(review.stars) }));
+}
+
+function isRussianText(value) {
+  const text = String(value || '').normalize('NFKC')
+    .replace(/https?:\/\/\S+/giu, '')
+    .replace(/\b(?:pentahotel|penta|hotel|moscow|arbat|wi-?fi|spa)\b/giu, '');
+  const letters = text.match(/\p{L}/gu) || [];
+  const russian = text.match(/[\u0410-\u044f\u0401\u0451]/gu) || [];
+  const otherCyrillic = letters.filter(letter => /\p{Script=Cyrillic}/u.test(letter) && !/[\u0410-\u044f\u0401\u0451]/u.test(letter));
+  if (otherCyrillic.length) return false;
+  return russian.length > 0 && russian.length * 2 >= letters.length;
+}
+
+const api = { ratingValue, ratedReviews, isRussianText };
+if (typeof module === 'object' && module.exports) module.exports = api;
+else root.ReviewEligibility = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+</script>
 <script>
 function loadEmbeddedReviews(){
-  if (window.REVIEWS) return window.REVIEWS;
   const node = document.getElementById('reviews-json');
-  if (!node) throw new Error('Данные отзывов не найдены в HTML.');
-  const payload=JSON.parse(node.textContent || '{}');
+  if (!window.REVIEWS && !node) throw new Error('Данные отзывов не найдены в HTML.');
+  const payload=window.REVIEWS || JSON.parse(node.textContent || '{}');
   const requested=new URLSearchParams(location.hash.slice(1)).get('source');
-  return payload.sources?.[requested]||payload;
+  const selected=payload.sources?.[requested]||payload;
+  const reviews=ReviewEligibility.ratedReviews(selected.reviews);
+  const other=ReviewEligibility.ratedReviews(selected.other_reviews);
+  const removed=(selected.reviews||[]).length-reviews.length+(selected.other_reviews||[]).length-other.length;
+  const meta={...selected.meta,sample_size:reviews.length,truncated_count:reviews.filter(review=>review.truncated).length,other_language_count:other.length};
+  if(removed){
+    meta.excluded_unrated_count=(meta.excluded_unrated_count||0)+removed;
+    meta.sentiment_distribution={};
+    reviews.forEach(review=>meta.sentiment_distribution[review.sentiment]=(meta.sentiment_distribution[review.sentiment]||0)+1);
+    delete meta.ai_analysis;
+  }
+  return {...selected,meta,reviews,other_reviews:other};
 }
 const DATA = loadEmbeddedReviews(), R = DATA.reviews, M = DATA.meta, OTHER = DATA.other_reviews || [];
 const $ = s => document.querySelector(s);
@@ -1287,7 +1327,7 @@ function csvCell(value){
   return `"${text.replace(/"/g,'""')}"`;
 }
 function exportFilteredCsv(){
-  const rows=getFiltered();
+  const rows=ReviewEligibility.ratedReviews(getFiltered());
   const columns=['organization','source_url','source_id','source_review_id','provider','is_rated','hiding_reason','date_edited','author_reviews_count','id','author','level','date','year','month','stars','sentiment','sentiment_score','loyalty_intention_marker','loyalty_intention','potential_loyalty','TRIP_PURPOSE','SITUATION','COMPANION','persona_key','reactions','themes','journey','lost_experiences','staff','truncated','length','words','text','answer'];
   const themeNames=M.theme_metric_names||Object.keys(rows.find(review=>review.theme_metrics)?.theme_metrics||{});
   const themeColumns=themeNames.flatMap(theme=>['presented','sentiment','severity','score'].map(metric=>({theme,metric,header:`${theme}_${metric}`})));
